@@ -11,8 +11,8 @@ case $(basename "$(cat "/proc/$PPID/comm")") in
         alias x='startx ~/.xinitrc'
       elif [[ "$USE_POWERLINE" == "true" ]]; then
         # Use powerline
-        source ~/.local/share/zsh/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-        [[ ! -f ~/.config/zsh/p10k.zsh ]] || source ~/.config/zsh/p10k.zsh
+        source ~/.config/zsh/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
         source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
         ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
         ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
