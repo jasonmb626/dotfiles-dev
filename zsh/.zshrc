@@ -43,3 +43,4 @@ setopt SHARE_HISTORY
 setopt interactivecomments
 
 alias ls="ls --color=auto"
+alias dcr='docker compose run --rm --build'
