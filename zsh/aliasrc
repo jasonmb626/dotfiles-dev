@@ -1,0 +1,20 @@
+#Aliases
+
+#Git
+alias gP="git push"
+alias gp="git pull"
+alias gc="git commit -m"
+alias ga="git add ."
+alias gadog='PAGER="less -F -X" git adog'
+alias glog='PAGER="less -F -X" git log'
+
+#Tmux
+alias tkill="tmux kill-session -t"
+alias tlist="tmux list-sessions"
+alias tattach="tmux attach"
+
+#Docker
+dcr="docker compose run --rm --build"
+
+#general
+alias vim="nvim"
