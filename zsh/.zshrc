@@ -19,10 +19,8 @@ zstyle ':completion:*' list-colors "${(s.:.)--color=auto}"                      
 zstyle ':completion:*' rehash true                                                # automatically find new executables in path
 zstyle ':completion:*' menu select                                                # Highlight menu selection
 
-XDG_DATA_DIR=$(echo $XDG_DATA_DIRS | awk -f: '{print $1}')
-
 # Lines configured by zsh-newuser-install
-HISTFILE=$XDG_DATA_DIR/zsh/.histfile
+HISTFILE=~/.local/share/zsh/.histfile
 HISTSIZE=11000
 SAVEHIST=10000
 # End of lines configured by zsh-newuser-install
@@ -32,8 +30,6 @@ zstyle :compinstall filename '~/.config/zsh/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-
-source ~/.local/share/zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
