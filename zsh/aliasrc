@@ -14,7 +14,7 @@ alias tlist="tmux list-sessions"
 alias tattach="tmux attach"
 
 #Docker
-dcr="docker compose run --rm --build"
+alias dcr="docker compose run --rm --build"
 
 #general
 alias vim="nvim"
