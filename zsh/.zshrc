@@ -1,3 +1,8 @@
+#Start tmux automatically
+if [ -z "$TMUX" ]; then
+   tmux attach -t TMUX || tmux new -s TMUX
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh//.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -27,13 +32,15 @@ SAVEHIST=10000
 # The following lines were added by compinstall
 zstyle :compinstall filename '~/.config/zsh/.zshrc'
 
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
-if [ -z "$TMUX" ]; then
-    tmux attach -t TMUX || tmux new -s TMUX
-fi
 
+bindkey -M viins "^[[A" history-substring-search-up
+bindkey -M viins "^[[B" history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
