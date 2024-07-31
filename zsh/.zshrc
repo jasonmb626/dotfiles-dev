@@ -46,3 +46,26 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
 PATH="$PATH:/home/jason/.local/bin"
+mkdir -p /home/jason/.local/share/tmux/plugins/
+if [[ "$(ls -1 /home/jason/.local/share/tmux/plugins/ | wc -l )" -eq 0 ]]; then
+    if [[ -x /home/jason/.config/tmux/plugins/tpm/scripts/install_plugins.sh && \
+      "$(which tmux)" != "" ]]; then
+      /home/jason/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+      tmux source ~/.config/tmux/tmux.conf
+    fi
+fi
+
+if [[ ! -x /home/jason/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
+    if [[ -x /home/jason/.config/nvim/if_docker/auto_install_dependencies.sh && \
+      "$(which nvim)" != "" ]]; then
+        /home/jason/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
+        echo "Neovim packages are installing in the background. Please wait before starting up neovim."
+        echo "This usually happens only on a fresh install."
+        echo "Sleeping 30 seconds."
+        sleep 30
+        PID=$(ps aux | grep 'nvim --headless -c TSInstall! markdown' | grep -v grep | awk '{print $2}')
+        kill $PID
+        echo "You may now start neovim. Additional LSPs, formatters, and linters may install on startup."
+        echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
+    fi
+fi
