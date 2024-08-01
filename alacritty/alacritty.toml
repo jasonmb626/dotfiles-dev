@@ -39,7 +39,7 @@ family = "FiraMono Nerd Font Mono"
 style = "regular"
 
 [window]
-decorations = "none"
+decorations = "Full"
 startup_mode = "Maximized"
 opacity = 1.0
 
