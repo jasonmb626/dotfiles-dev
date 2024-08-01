@@ -46,5 +46,14 @@ bindings = [
 { mouse = "Right", action = "Paste" },
 ]
 
+[keyboard]
+bindings = [
+{ key = "PageUp",   mods = "Shift",   action = "ScrollPageUp"   },
+{ key = "PageDown", mods = "Shift",   action = "ScrollPageDown" },
+{ key = "End",      mods = "Shift",   action = "ScrollToBottom" },
+{ key = "Home",     mods = "Shift",   action = "ScrollToTop"    },
+{ key = "Up",     mods = "Control|Shift",   action = "ScrollLineUp"    },
+{ key = "Down",     mods = "Control|Shift",   action = "ScrollLineDown"    },
+]
 [selection]
 save_to_clipboard = true
