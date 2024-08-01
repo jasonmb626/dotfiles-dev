@@ -40,7 +40,9 @@ style = "regular"
 
 [window]
 decorations = "none"
+startup_mode = "Maximized"
 opacity = 1.0
+
 [mouse]
 bindings = [
 { mouse = "Right", action = "Paste" },
