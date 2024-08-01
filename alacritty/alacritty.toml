@@ -41,3 +41,10 @@ style = "regular"
 [window]
 decorations = "none"
 opacity = 1.0
+[mouse]
+bindings = [
+{ mouse = "Right", action = "Paste" },
+]
+
+[selection]
+save_to_clipboard = true
