@@ -47,10 +47,10 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 PATH="$PATH:/home/jason/.local/bin"
 mkdir -p /home/jason/.local/share/tmux/plugins/
-if [[ "$(ls -1 /home/jason/.local/share/tmux/plugins/ | wc -l )" -eq 0 ]]; then
-    if [[ -x /home/jason/.config/tmux/plugins/tpm/scripts/install_plugins.sh && \
+if [[ "$(ls -1 /home/jason/.local/share/tmux/plugins/ | grep -v tpm | wc -l )" -eq 0 ]]; then
+    if [[ -x /home/jason/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh && \
       "$(which tmux)" != "" ]]; then
-      /home/jason/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+      /home/jason/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh
       tmux source ~/.config/tmux/tmux.conf
     fi
 fi
