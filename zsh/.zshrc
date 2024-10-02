@@ -58,7 +58,7 @@ fi
 if [[ ! -x ~/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
     if [[ -x ~/.config/nvim/if_docker/auto_install_dependencies.sh && \
       "$(which nvim)" != "" ]]; then
-        ~/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
+        nvim --headless -c 'TSInstall! markdown' & >/dev/null 2>&1
         echo "Neovim packages are installing in the background. Please wait before starting up neovim."
         echo "This usually happens only on a fresh install."
         echo "Sleeping 30 seconds."
