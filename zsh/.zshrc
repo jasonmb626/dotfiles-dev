@@ -1,4 +1,4 @@
-#Start tmux automatically
+Start tmux automatically
 if [ -z "$TMUX" ]; then
    tmux attach -t TMUX || tmux new -s TMUX
 fi
@@ -45,20 +45,20 @@ bindkey -M viins "^[[B" history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-PATH="$PATH:/home/jason/.local/bin"
-mkdir -p /home/jason/.local/share/tmux/plugins/
-if [[ "$(ls -1 /home/jason/.local/share/tmux/plugins/ | grep -v tpm | wc -l )" -eq 0 ]]; then
-    if [[ -x /home/jason/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh && \
+PATH="$PATH:~/.local/bin"
+mkdir -p ~/.local/share/tmux/plugins/
+if [[ "$(ls -1 ~/.local/share/tmux/plugins/ | grep -v tpm | wc -l )" -eq 0 ]]; then
+    if [[ -x ~/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh && \
       "$(which tmux)" != "" ]]; then
-      /home/jason/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh
+      ~/.local/share/tmux/plugins/tpm/scripts/install_plugins.sh
       tmux source ~/.config/tmux/tmux.conf
     fi
 fi
 
-if [[ ! -x /home/jason/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
-    if [[ -x /home/jason/.config/nvim/if_docker/auto_install_dependencies.sh && \
+if [[ ! -x ~/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
+    if [[ -x ~/.config/nvim/if_docker/auto_install_dependencies.sh && \
       "$(which nvim)" != "" ]]; then
-        /home/jason/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
+        ~/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
         echo "Neovim packages are installing in the background. Please wait before starting up neovim."
         echo "This usually happens only on a fresh install."
         echo "Sleeping 30 seconds."
