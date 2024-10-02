@@ -7,7 +7,7 @@
     
     flags=
     if [[ "$plugin" == "powerlevel10k" ]]; then
-        flags="--depth=1 "
+        flags="--depth=1"
     fi
     if [ ! -d "${ZPLUGINDIR}/${plugin}" ]; then
       echo "WARNING: ${plugin} not found. Installing..."
