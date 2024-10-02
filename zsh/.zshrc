@@ -1,4 +1,4 @@
-Start tmux automatically
+#Start tmux automatically
 if [ -z "$TMUX" ]; then
    tmux attach -t TMUX || tmux new -s TMUX
 fi
