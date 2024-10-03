@@ -5,9 +5,14 @@
     github=$1
     plugin=$2
     
+    flags=
+    if [[ "$plugin" == "powerlevel10k" ]]; then
+        flags="--depth=1"
+    fi
     if [ ! -d "${ZPLUGINDIR}/${plugin}" ]; then
       echo "WARNING: ${plugin} not found. Installing..."
-      sudo git clone "https://www.github.com/${github}/${plugin}" "${ZPLUGINDIR}/${plugin}"
+      echo "Running sudo git clone $flags \"https://github.com/${github}/${plugin}.git/\" \"${ZPLUGINDIR}/${plugin}\""
+      sudo git clone $flags "https://github.com/${github}/${plugin}.git/" "${ZPLUGINDIR}/${plugin}"
       echo "SUCCESS: ${plugin} installed!"
     fi
     
