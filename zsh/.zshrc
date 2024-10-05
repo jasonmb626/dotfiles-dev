@@ -45,7 +45,7 @@ bindkey -M viins "^[[B" history-substring-search-down
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-PATH="$PATH:~/.local/bin"
+PATH="$PATH:~/.local/bin:~/git/commandline_utilities/"
 mkdir -p ~/.local/share/tmux/plugins/
 if [[ "$(ls -1 ~/.local/share/tmux/plugins/ | wc -l )" -eq 0 ]]; then
     if [[ -x ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh && \
