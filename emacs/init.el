@@ -186,7 +186,7 @@
     )
 
     (my/lleader-keys
-     "," '(org-ctrl-c-ctrl-c
+     "," 'org-ctrl-c-ctrl-c
     (my/leader-keys
       "SPC" 'counsel-M-x
       "." 'find-file

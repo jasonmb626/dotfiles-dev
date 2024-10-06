@@ -333,7 +333,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
       )
 
       (my/lleader-keys
-       "," '(org-ctrl-c-ctrl-c
+       "," 'org-ctrl-c-ctrl-c
       (my/leader-keys
         "SPC" 'counsel-M-x
         "." 'find-file
