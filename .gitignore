@@ -9,3 +9,4 @@ emacs/projectile-bookmarks.eld
 emacs/Dockerfiles/eln-cache
 emacs/Dockerfiles/elpaca
 emacs/Dockerfiles/auto-save-list
+emacs/Dockerfiles/emacs_sessions
