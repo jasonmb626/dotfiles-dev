@@ -4,6 +4,7 @@ emacs/eln-cache
 emacs/elpaca
 emacs/auto-save-list
 emacs/recentf
+emacs/sessions
 emacs/projectile-bookmarks.eld
 emacs/Dockerfiles/eln-cache
 emacs/Dockerfiles/elpaca
