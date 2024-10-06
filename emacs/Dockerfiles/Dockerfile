@@ -50,7 +50,7 @@ RUN apk update -U \
     && mkdir -p /home/app/Documents/zettelkasten \
     && git clone https://github.com/jasonmb626/dotfiles-dev.git /tmp/dotfiles-dev \
     && mv /tmp/dotfiles-dev/emacs /home/app/.config \
-    && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca \
+    && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && mkdir /home/app/.config/emacs/bin \
     && touch /home/app/.config/emacs/recentf && touch /home/app/.config/emacs/projectile-bookmarks.eld && touch /home/app/.config/emacs/sessions \
     && mv /tmp/dotfiles-dev/tmux/tmux.conf /home/app/.config/tmux/tmux.conf \
     && mv /tmp/dotfiles-dev/zsh /home/app/.config/ && rm -fr /tmp/dotfiles-dev \
@@ -75,8 +75,13 @@ EOF
 RUN cat /tmp/zshrc_preamble /tmp/.zshrc > /home/app/.config/zsh/.zshrc \
     && rm /tmp/zshrc_preamble /tmp/.zshrc \
     && dos2unix /home/app/.config/zsh/.zshrc \
+    && touch /home/app/.config/emacs/bin/fix_melpa_entry.sh && chmod +x /home/app/.config/emacs/bin/fix_melpa_entry.sh \
     && chown -R app:app /home/app \
-    && chmod 777 /tmp
+    && chmod 777 /tmp \
+    && cat <<EOF >/home/app/.config/emacs/bin/fix_melpa_entry.sh
+#!/bin/sh
+sed -i -r 's^:package "lsp-mode" (.*)url "https://github.com/emacs-lsp/lsp-mode"^lsp-mode" :depth 1 \1 url "https://github.com/emacs-lsp/lsp-mode"^' ~/.config/emacs/elpaca/cache/melpa.eld
+EOF
       
 USER app:app
 CMD ["tmux"]
