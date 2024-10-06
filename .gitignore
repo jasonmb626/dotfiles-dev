@@ -4,6 +4,7 @@ emacs/eln-cache
 emacs/elpaca
 emacs/auto-save-list
 emacs/recentf
-emacs/projectile-bookmarks.el
-emacs/Dockerfiles/recentf
-emacs/Dockerfiles/projectile-bookmarks.el
+emacs/projectile-bookmarks.eld
+emacs/Dockerfiles/eln-cache
+emacs/Dockerfiles/elpaca
+emacs/Dockerfiles/auto-save-list
