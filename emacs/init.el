@@ -186,7 +186,8 @@
     )
 
     (my/lleader-keys
-     "," 'org-ctrl-c-ctrl-c
+     "," 'org-ctrl-c-ctrl-c)
+
     (my/leader-keys
       "SPC" 'counsel-M-x
       "." 'find-file
@@ -241,7 +242,7 @@
                 (dired "~/.config/emacs/")) 
               :wk "Open user-emacs-directory in dired")
       "f d" '(:ignore t :wk "Dotfiles")
-      "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org"))))
+      "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))
       "f D" 'find-grep-dired
       "f g" 'counsel-grep-or-swiper
       "f i" '((lambda () (interactive)
@@ -355,7 +356,6 @@
       "w K" 'buf-move-up
       "w L" 'buf-move-right)
   )
-)
 
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "NEXT(n!)" "IN PROGRESS(i!)" "BLOCKED(b@/!)" "PEND SET STATE(p!)" "TO DELEGATE(2!)" "DELEGATED(g@/!)" "FOLLOWUP(f!)" "FORWARDED(>@/!)" "ADJOURNED(a!)" "|" "CANCELED(c!)" "DONE(d!)")))
