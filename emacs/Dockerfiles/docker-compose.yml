@@ -15,6 +15,7 @@ services:
       - emacs_eln_cache:/home/app/.config/emacs/eln_cache:z
       - ./emacs_recentf:/home/app/.config/emacs/emacs_recentf
       - ./projectile-bookmarks.eld:/home/app/.config/emacs/projectile-bookmarks.eld
+      - ./emacs_sessions:/home/app/.config/emacs/sessions
     stdin_open: true
     tty: true
     user: 1000:1000

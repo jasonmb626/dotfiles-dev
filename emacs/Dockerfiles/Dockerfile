@@ -50,8 +50,8 @@ RUN apk update -U \
     && mkdir -p /home/app/Documents/zettelkasten \
     && git clone https://github.com/jasonmb626/dotfiles-dev.git /tmp/dotfiles-dev \
     && mv /tmp/dotfiles-dev/emacs /home/app/.config \
-    && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && \
-    && touch /home/app/.config/emacs/recentf && /home/app/.config/emacs/projectile-bookmarks.el \
+    && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca \
+    && touch /home/app/.config/emacs/recentf && touch /home/app/.config/emacs/projectile-bookmarks.eld && touch /home/app/.config/emacs/sessions \
     && mv /tmp/dotfiles-dev/tmux/tmux.conf /home/app/.config/tmux/tmux.conf \
     && mv /tmp/dotfiles-dev/zsh /home/app/.config/ && rm -fr /tmp/dotfiles-dev \
     && mv /home/app/.config/zsh/.zshrc /tmp/.zshrc \
