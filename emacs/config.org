@@ -135,6 +135,12 @@ By default, Emacs creates automatic backups of files in their original directori
         (define-key company-active-map (kbd "C-l") #'company-complete-selection))
 #+end_src
 
+Note: lsp-mode consistently fails downloading with elpaca. Not sure why. Manually downloading after fail seems to fix the issue.
+
+#+begin_src shell :tangle no
+cd ~/.config/emacs/elpaca/repos
+git clone --depth 1 https://github.com/emacs-lsp/lsp-mode.git
+#+end_src
 * DIMINISH
 This package implements hiding or abbreviation of the modeline displays (lighters) of minor-modes.  With this package installed, you can add ':diminish' to any use-package block to hide that particular mode in the modeline.
 
