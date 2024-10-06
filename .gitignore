@@ -1,2 +1,7 @@
 .zcompdump
 zsh_history
+emacs/eln-cache/
+emacs/elpaca/
+emacs/auto-save-list/
+emacs/recentf
+emacs/projectile-bookmarks.el
