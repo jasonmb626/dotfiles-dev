@@ -1,5 +1,5 @@
 () {
-  local ZPLUGINDIR=/etc/zsh/plugins
+  local ZPLUGINDIR=~/.local/share/zsh/plugins
 
   apply() {
     github=$1
