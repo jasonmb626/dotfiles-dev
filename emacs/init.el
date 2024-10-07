@@ -183,11 +183,141 @@
     :states '(normal insert visual emacs)
     :keymaps 'org-mode-map
     :prefix "," ;; set leader
-    "i" 'org-clock-in
   )
 
   (my/lleader-keys
-   "," 'org-ctrl-c-ctrl-c)
+   "," 'org-ctrl-c-ctrl-c
+   "RET" 'org-ctrl-c-ret
+   "[" 'org-agenda-file-to-front
+   "]" 'org-remove-file
+   "a" 'org-agenda
+   "c" 'org-capture
+   )
+  
+  (my/lleader-keys
+    "b" '(:ignore t :wk "babel")
+    "b f" 'org-babel-tangle-file
+    "b t" 'org-babel-tangle
+  )
+
+  (my/lleader-keys
+    "d" '(:ignore t :wk "dates")
+    "d d" 'org-deadline
+    "d s" 'org-schedule
+    "d t" 'org-time-stamp
+    "d T" 'org-time-stamp-inactive
+  )
+
+  (my/lleader-keys
+    "e" '(:ignore t :wk "export")
+  )
+
+  (my/lleader-keys
+    "f" '(:ignore t :wk "feeds")
+  )
+
+  (my/lleader-keys
+    "i" '(:ignore t :wk "insert")
+    "i b" 'org-insert-structure-template
+    "i d" 'org-insert-drawer
+    "i e" 'org-set-effors
+    "i f" 'org-footnote-new
+    "i h" 'org-insert-heading
+    "i i" 'org-insert-item
+    "i l" 'org-insert-link
+    "i n" 'org-insert-note
+    "i p" 'org-set-property
+    "i r" 'org-rich-yank
+    "i s" 'org-insert-subheading
+    "i t" 'org-set-tags-command
+    "i H" 'org-insert-heading-after-current
+    "i K" 'insert-keybinding-org
+    "i L" 'org-cliplink
+    "i D" '(:ignore t :wk "download")
+  )
+
+  (my/lleader-keys
+    "m" '(:ignore t :wk "more")
+  )
+
+  (my/lleader-keys
+    "s" '(:ignore t :wk "trees/subtrees")
+    "s a" 'org-toggle-archive-tag
+    "s b" 'org-tree-to-indirect-buffer
+    "s d" 'org-cut-subtree
+    "s h" 'org-promote-subtree
+    "s j" 'org-move-subtree_down
+    "s k" 'org-move-subtree_up
+    "s l" 'org-demote-subtree
+    "s n" 'org-narrow-to-subtree
+    "s p" 'org-paste-subtree
+    "s r" 'org-refile
+    "s s" 'org-sparse-tree
+    "s w" 'widen
+    "s y" 'org-copy-subtree
+    "s A" 'org-archive-subtree-default
+    "s S" 'org-sort
+  )
+
+  (my/lleader-keys
+    "t" '(:ignore t :wk "tables")
+    "t a" 'org-table-align
+    "t b" 'org-table-blank-field
+    "t c" 'org-table-convert
+    "t e" 'org-table-eval-formula
+    "t f" 'org-table-fields-info
+    "t h" 'org-table-previous-field
+    "t j" 'org-table-next-row
+    "t l" 'org-table-next-field
+    "t n" 'org-table-create
+    "t p" 'org-plot/gnuplot
+    "t r" 'org-table-reclalculate
+    "t s" 'org-table-sort-time
+    "t w" 'org-table-wrap-region
+    "t E" 'org-table-export
+    "t H" 'org-table-move-column-left
+    "t I" 'org-table-import
+    "t J" 'org-table-move-row-down
+    "t K" 'org-table-move-row-up
+    "t L" 'org-table-move-columns-left
+    "t N" 'org-table-create-with-table.el
+    "t R" 'org-table-recalculate-buffer-t...
+    "t d" '(:ignore t :wk "delete")
+    "t i" '(:ignore t :wk "insert")
+    "t t" '(:ignore t :wk "toggle")
+  )
+
+  (my/lleader-keys
+    "x" '(:ignore t :wk "text")
+    "x o" 'org-open-at-point
+  )
+
+  (my/lleader-keys
+    "C" '(:ignore t :wk "clocks")
+    "C c" 'org-clock-cancel
+    "C d" 'org-clock-display
+    "C e" 'org-evaluate-time-range
+    "C g" 'org-clock-goto
+    "C i" 'org-clock-in
+    "C j" 'org-clock-jumpt-to-current-clock
+    "C o" 'org-clock-out
+    "C p" 'org-pomodoro
+    "C r" 'org-resolve-clocks
+    "C I" 'org-clock-in-last
+    "C R" 'org-clock-report
+  )
+
+  (my/lleader-keys
+    "T" '(:ignore t :wk "toggles")
+    "T c" 'org-toggle-checkbox
+    "T e" 'org-toggle-pretty-entities
+    "T i" 'org-toggle-inline-images
+    "T l" 'org-toggle-link-display
+    "T n" 'org-num-mode
+    "T t" 'org-show-todo-tree
+    "T x" 'org-latex-preview
+    "T T" 'org-todo
+  )
 
   (my/leader-keys
     "SPC" 'counsel-M-x
