@@ -238,7 +238,6 @@
                 (dired "~/.config/emacs/")) 
               :wk "Open user-emacs-directory in dired")
       "f d" '(:ignore t :wk "Dotfiles")
-      "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.config/emacs/config.org")))
       "f D" 'find-grep-dired
       "f g" 'counsel-grep-or-swiper
       "f i" '((lambda () (interactive)
