@@ -551,7 +551,7 @@ This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-con
                           (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
                           (local-set-key (kbd "C-c i") 'org-clock-in)
                           (local-set-key (kbd "C-c o") 'org-clock-out)
-                          (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo')))
+                          (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo)))
 
 #+end_src
 
