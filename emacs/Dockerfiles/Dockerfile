@@ -35,7 +35,6 @@ RUN apk update -U \
     && adduser -D -u ${UID} -G app -s /bin/zsh app \
     && passwd -d app \
     && chmod 777 /tmp \
-    && mkdir -p /app/node_modules\
     && python3 -m venv /home/app/.venvs/app \
     && source /home/app/.venvs/app/bin/activate\
     && pip3 install --upgrade pip \
@@ -64,12 +63,6 @@ RUN apk update -U \
         tmux source ~/.config/tmux/tmux.conf
     fi
     sed -i 's^--vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^' /home/app/.config/nvim/lua/config/options.lua
-    if [[ -d /app/node_modules ]]; then
-        size_of=\$(du /app/node_modules | tail -n 1 | awk {'print \$1'})
-        if [[ \$size_of -eq 0 ]]; then
-            echo -e "\\n\\tNode modules folder is empty. If this is a node project you may need to run 'npm i'\\n"
-        fi
-    fi
 EOF
 
 RUN cat /tmp/zshrc_preamble /tmp/.zshrc > /home/app/.config/zsh/.zshrc \

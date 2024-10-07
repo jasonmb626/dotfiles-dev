@@ -9,13 +9,14 @@ services:
     restart: always
     volumes:
       - ./app:/app:z
-      - node_modules:/app/node_modules
       - dotlocal:/home/app/.local
-      - emacs_eln-cache:/home/app/.config/emacs/eln-cache
-      - elpaca:/home/app/.config/emacs/elpaca
-      - ./emacs_recentf:/home/app/.config/emacs/emacs_recentf:z
-      - ./projectile-bookmarks.eld:/home/app/.config/emacs/projectile-bookmarks.eld:z
-      - ./emacs_sessions:/home/app/.config/emacs/sessions:z
+      - config_dir:/home/app/.config
+      - zettelkasten:/home/app/Documents/zettelkasten
+      #- emacs_eln-cache:/home/app/.config/emacs/eln-cache
+      #- elpaca:/home/app/.config/emacs/elpaca
+      #- ./emacs_recentf:/home/app/.config/emacs/emacs_recentf:z
+      #- ./projectile-bookmarks.eld:/home/app/.config/emacs/projectile-bookmarks.eld:z
+      #- ./emacs_sessions:/home/app/.config/emacs/sessions:z
     stdin_open: true
     tty: true
     user: 1000:1000
@@ -29,6 +30,7 @@ services:
         #      - label:type:container_runtime_t
 volumes:
   dotlocal:
-  node_modules:
   emacs_eln-cache:
   elpaca:
+  zettelkasten:
+  config_dir:
