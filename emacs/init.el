@@ -391,7 +391,8 @@
 (add-hook 'org-mode-hook (lambda ()
                           (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
                           (local-set-key (kbd "C-c i") 'org-clock-in)
-                          (local-set-key (kbd "C-c o") 'org-clock-out)))
+                          (local-set-key (kbd "C-c o") 'org-clock-out)
+                          (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo')))
 
 (with-eval-after-load 'org
   (org-babel-do-load-languages
