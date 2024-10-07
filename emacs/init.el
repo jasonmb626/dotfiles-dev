@@ -534,6 +534,8 @@
 (setq org-M-RET-may-split-line nil)
 (setq org-ellipsis " ▾")
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3))) ; any agenda file will show up in the list when choosing to refile
+(setq org-agenda-window-setup 'other-window)
+(setq org-agenda-use-time-grid t)
 
 (setq org-clock-in-switch-to-state "IN PROGRESS")
 (setq org-clock-out-switch-to-state "PEND SET STATE")

@@ -784,6 +784,8 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   (setq org-M-RET-may-split-line nil)
   (setq org-ellipsis " ▾")
   (setq org-refile-targets '((org-agenda-files :maxlevel . 3))) ; any agenda file will show up in the list when choosing to refile
+  (setq org-agenda-window-setup 'other-window)
+  (setq org-agenda-use-time-grid t)
 #+end_src
 
 ** Clocking in/out
