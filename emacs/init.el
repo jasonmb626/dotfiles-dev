@@ -570,7 +570,7 @@
         ("S" "Store" entry
          (file (lambda() (interactive) (my/generate-new-store-file-name)))
          (file  ,(concat templates_dir "/store-template.txt")))
-        ("i" "Incident" entry
+        ("I" "Incident" entry
          (file (lambda() (interactive) (my/generate-new-inc-file-name)))
          (file  ,(concat templates_dir "/inc-template.txt")))
         ("t" "TODO entry" entry
