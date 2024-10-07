@@ -69,3 +69,11 @@ if [[ ! -x ~/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
         echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
     fi
 fi
+
+fq_emacs=$(which emacs)
+if [[ -x $fq_emacs ]]; then
+  already_running=$(ps aux | grep 'emacs --daemon' | grep -v grep)
+  if [[ -z $already_running ]]; then
+      eval "$fq_emacs --daemon"
+  fi
+fi
