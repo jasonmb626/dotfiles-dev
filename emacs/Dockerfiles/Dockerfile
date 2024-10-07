@@ -12,14 +12,13 @@ ENV ZETTEL_BASE=/home/app/Documents/zettelkasten
 ENV ORG_TEMPLATES_DIR=/home/app/.config/emacs/doom/templates
 ENV DOOMDIR=/home/app/.config/emacs/doom
 
-WORKDIR /app
 RUN apk add -U py3-pip npm zsh \
     && sed -i 's,root:x:0:0:root:/root:/bin/ash,root:x:0:0:root:/root:/bin/zsh,g' /etc/passwd \
     && chmod -R 777 /tmp
 
 COPY requirements.txt /tmp
 RUN apk update -U \
-    && apk add -U py3-pip npm zsh\
+    && apk add -U tzdata py3-pip npm zsh\
         lua-dev luarocks stylua\
         lazygit openssh\
         tmux neovim neovim-doc emacs-nox\
@@ -30,6 +29,7 @@ RUN apk update -U \
         wl-clipboard\
         sudo \
         unzip gzip fd mercurial wget\
+    && ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && rm /etc/ssh/sshd_config \
     && addgroup -g ${GID} app \
     && adduser -D -u ${UID} -G app -s /bin/zsh app \
@@ -77,4 +77,5 @@ sed -i -r 's^:package "lsp-mode" (.*)url "https://github.com/emacs-lsp/lsp-mode"
 EOF
       
 USER app:app
+WORKDIR /home/app/Documents/zettelkasten
 CMD ["tmux"]
