@@ -169,188 +169,190 @@
 (global-set-key (kbd "<C-wheel-down>") 'text-scale-decrease)
 
 (use-package general
-    :config
-    (general-evil-setup)
+  :config
+  (general-evil-setup)
 
-    ;; set up 'SPC' as the global leader key
-    (general-create-definer my/leader-keys
-      :states '(normal insert visual emacs)
-      :keymaps 'override
-      :prefix "SPC" ;; set leader
-      :global-prefix "M-SPC") ;; access leader in insert mode
+  ;; set up 'SPC' as the global leader key
+  (general-create-definer my/leader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC" ;; set leader
+    :global-prefix "M-SPC") ;; access leader in insert mode
 
-    (general-create-definer my/lleader-keys
-      :states '(normal insert visual emacs)
-      :keymaps 'override
-      :prefix "," ;; set leader
-    )
-
-    (my/lleader-keys
-     "," 'org-ctrl-c-ctrl-c)
-
-    (my/leader-keys
-      "SPC" 'counsel-M-x
-      "." 'find-file
-      "=" 'perspective-map ;; Lists all the perspective keybindings
-      "TAB TAB" 'comment-line
-      "u" 'universal-argument)
-
-    (my/leader-keys
-      "b" '(:ignore t :wk "Bookmarks/Buffers")
-      "b b" 'ido-switch-to-buffer
-      "b c" 'clone-indirect-buffer
-      "b C" 'clone-indirect-buffer-other-window
-      "b d" 'bookmark-delete
-      "b i" 'ibuffer
-      "b k" 'kill-current-buffer
-      "b K" 'kill-some-buffers
-      "b l" 'list-bookmarks
-      "b m" 'bookmark-set
-      "b n" 'next-buffer
-      "b p" 'previous-buffer
-      "b r" 'revert-buffer
-      "b R" 'rename-buffer
-      "b s" 'basic-save-buffer
-      "b S" 'save-some-buffers
-      "b w" 'bookmark-save)
-
-    (my/leader-keys
-      "d" '(:ignore t :wk "Dired")
-      "d d" 'dired
-      "d j" 'dired-jump
-      "d n" 'neotree-dir
-      "d p" 'peep-dired)
-
-    (my/leader-keys
-      "e" '(:ignore t :wk "Eshell/Evaluate")    
-      "e b" 'eval-buffer
-      "e d" 'eval-defun
-      "e e" '(eval-expression)
-      "e l" 'eval-last-sexp
-      "e r" 'eval-region)
-      
-    (my/leader-keys
-      "f" '(:ignore t :wk "Files")    
-      "f c" '((lambda () (interactive)
-                (find-file "~/.config/emacs/config.org")) 
-              :wk "Open emacs config.org")
-      "f e" '((lambda () (interactive)
-                (dired "~/.config/emacs/")) 
-              :wk "Open user-emacs-directory in dired")
-      "f d" '(:ignore t :wk "Dotfiles")
-      "f D" 'find-grep-dired
-      "f g" 'counsel-grep-or-swiper
-      "f i" '((lambda () (interactive)
-                (find-file "~/.config/emacs/init.el")) 
-              :wk "Open emacs init.el")
-      "f j" 'counsel-file-jump
-      "f l" 'counsel-locate
-      "f r" 'counsel-recentf
-      "f u" 'sudo-edit-find-file
-      "f U" 'sudo-edit)
-
-   (my/leader-keys
-      "h" '(:ignore t :wk "Help")
-      "h a" 'counsel-apropos
-      "h b" 'describe-bindings
-      "h c" 'describe-char
-      "h d" '(:ignore t :wk "Emacs documentation")
-      "h d a" 'about-emacs
-      "h d d" 'view-emacs-debugging
-      "h d f" 'view-emacs-FAQ
-      "h d m" 'info-emacs-manual
-      "h d n" 'view-emacs-news
-      "h d o" 'describe-distribution
-      "h d p" 'view-emacs-problems
-      "h d t" 'view-emacs-todo
-      "h d w" 'describe-no-warranty
-      "h e" 'view-echo-area-messages
-      "h f" 'describe-function
-      "h F" 'describe-face
-      "h g" 'describe-gnu-project
-      "h i" 'info
-      "h I" 'describe-input-method
-      "h k" 'describe-key
-      "h l" 'view-lossage
-      "h L" 'describe-language-environment
-      "h m" 'describe-mode
-      "h r" '(:ignore t :wk "Reload")
-      "h r r" '((lambda () (interactive)
-                  (load-file "~/.config/emacs/init.el")
-                  (ignore (elpaca-process-queues)))
-                :wk "Reload emacs config")
-      "h t" 'load-theme
-      "h v" 'describe-variable
-      "h w" 'where-is
-      "h x" 'describe-command)
-
-    (my/leader-keys
-      "m" '(:ignore t :wk "Org")
-      "m a" 'org-agenda
-      "m e" 'org-export-dispatch
-      "m i" 'org-toggle-item
-      "m t" 'org-todo
-      "m B" 'org-babel-tangle
-      "m T" 'org-todo-list)
-
-    (my/leader-keys
-      "m b" '(:ignore t :wk "Tables")
-      "m b -" 'org-table-insert-hline)
-
-    (my/leader-keys
-      "m d" '(:ignore t :wk "Date/deadline")
-      "m d t" 'org-time-stamp
-      "m d i" 'org-clock-in
-      "m d o" 'org-clock-out)
-
-    (my/leader-keys
-      "o" '(:ignore t :wk "Open")
-      "o d" 'dashboard-open
-      "o e" 'elfeed
-      "o f" 'make-frame
-      "o F" 'select-frame-by-name)
-
-    ;; projectile-command-map already has a ton of bindings 
-    ;; set for us, so no need to specify each individually.
-    (my/leader-keys
-      "p" 'projectile-command-map)
-
-    (my/leader-keys
-      "s" '(:ignore t :wk "Search")
-      "s d" 'dictionary-search
-      "s m" 'man
-      "s t" 'tldr
-      "s w" 'woman)
-
-    (my/leader-keys
-      "t" '(:ignore t :wk "Toggle")
-      "t e" 'eshell-toggle
-      "t f" 'flycheck-mode
-      "t l" 'display-line-numbers-mode
-      "t n" 'neotree-toggle
-      "t o" 'org-mode
-      "t r" 'rainbow-mode
-      "t t" 'visual-line-mode)
-
-    (my/leader-keys
-      "w" '(:ignore t :wk "Windows")
-      ;; Window splits
-      "w c" 'evil-window-delete
-      "w n" 'evil-window-new
-      "w s" 'evil-window-split
-      "w v" 'evil-window-vsplit
-      ;; Window motions
-      "w h" 'evil-window-left
-      "w j" 'evil-window-down
-      "w k" 'evil-window-up
-      "w l" 'evil-window-right
-      "w w" 'evil-window-next
-      ;; Move Windows
-      "w H" 'buf-move-left
-      "w J" 'buf-move-down
-      "w K" 'buf-move-up
-      "w L" 'buf-move-right)
+  (general-create-definer my/lleader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'org-mode-map
+    :prefix "," ;; set leader
+    "i" 'org-clock-in
   )
+
+  (my/lleader-keys
+   "," 'org-ctrl-c-ctrl-c)
+
+  (my/leader-keys
+    "SPC" 'counsel-M-x
+    "RET" 'org-insert-heading
+    "." 'find-file
+    "=" 'perspective-map ;; Lists all the perspective keybindings
+    "TAB TAB" 'comment-line
+    "u" 'universal-argument)
+
+  (my/leader-keys
+    "b" '(:ignore t :wk "Bookmarks/Buffers")
+    "b b" 'ido-switch-to-buffer
+    "b c" 'clone-indirect-buffer
+    "b C" 'clone-indirect-buffer-other-window
+    "b d" 'bookmark-delete
+    "b i" 'ibuffer
+    "b k" 'kill-current-buffer
+    "b K" 'kill-some-buffers
+    "b l" 'list-bookmarks
+    "b m" 'bookmark-set
+    "b n" 'next-buffer
+    "b p" 'previous-buffer
+    "b r" 'revert-buffer
+    "b R" 'rename-buffer
+    "b s" 'basic-save-buffer
+    "b S" 'save-some-buffers
+    "b w" 'bookmark-save)
+
+  (my/leader-keys
+    "d" '(:ignore t :wk "Dired")
+    "d d" 'dired
+    "d j" 'dired-jump
+    "d n" 'neotree-dir
+    "d p" 'peep-dired)
+
+  (my/leader-keys
+    "e" '(:ignore t :wk "Eshell/Evaluate")    
+    "e b" 'eval-buffer
+    "e d" 'eval-defun
+    "e e" '(eval-expression)
+    "e l" 'eval-last-sexp
+    "e r" 'eval-region)
+
+  (my/leader-keys
+    "f" '(:ignore t :wk "Files")    
+    "f c" '((lambda () (interactive)
+              (find-file "~/.config/emacs/config.org")) 
+            :wk "Open emacs config.org")
+    "f e" '((lambda () (interactive)
+              (dired "~/.config/emacs/")) 
+            :wk "Open user-emacs-directory in dired")
+    "f d" '(:ignore t :wk "Dotfiles")
+    "f D" 'find-grep-dired
+    "f g" 'counsel-grep-or-swiper
+    "f i" '((lambda () (interactive)
+              (find-file "~/.config/emacs/init.el")) 
+            :wk "Open emacs init.el")
+    "f j" 'counsel-file-jump
+    "f l" 'counsel-locate
+    "f r" 'counsel-recentf
+    "f u" 'sudo-edit-find-file
+    "f U" 'sudo-edit)
+
+ (my/leader-keys
+    "h" '(:ignore t :wk "Help")
+    "h a" 'counsel-apropos
+    "h b" 'describe-bindings
+    "h c" 'describe-char
+    "h d" '(:ignore t :wk "Emacs documentation")
+    "h d a" 'about-emacs
+    "h d d" 'view-emacs-debugging
+    "h d f" 'view-emacs-FAQ
+    "h d m" 'info-emacs-manual
+    "h d n" 'view-emacs-news
+    "h d o" 'describe-distribution
+    "h d p" 'view-emacs-problems
+    "h d t" 'view-emacs-todo
+    "h d w" 'describe-no-warranty
+    "h e" 'view-echo-area-messages
+    "h f" 'describe-function
+    "h F" 'describe-face
+    "h g" 'describe-gnu-project
+    "h i" 'info
+    "h I" 'describe-input-method
+    "h k" 'describe-key
+    "h l" 'view-lossage
+    "h L" 'describe-language-environment
+    "h m" 'describe-mode
+    "h r" '(:ignore t :wk "Reload")
+    "h r r" '((lambda () (interactive)
+                (load-file "~/.config/emacs/init.el")
+                (ignore (elpaca-process-queues)))
+              :wk "Reload emacs config")
+    "h t" 'load-theme
+    "h v" 'describe-variable
+    "h w" 'where-is
+    "h x" 'describe-command)
+
+  (my/leader-keys
+    "m" '(:ignore t :wk "Org")
+    "m a" 'org-agenda
+    "m e" 'org-export-dispatch
+    "m i" 'org-toggle-item
+    "m t" 'org-todo
+    "m B" 'org-babel-tangle
+    "m T" 'org-todo-list)
+
+  (my/leader-keys
+    "m b" '(:ignore t :wk "Tables")
+    "m b -" 'org-table-insert-hline)
+
+  (my/leader-keys
+    "m d" '(:ignore t :wk "Date/deadline")
+    "m d t" 'org-time-stamp
+    "m d i" 'org-clock-in
+    "m d o" 'org-clock-out)
+
+  (my/leader-keys
+    "o" '(:ignore t :wk "Open")
+    "o d" 'dashboard-open
+    "o e" 'elfeed
+    "o f" 'make-frame
+    "o F" 'select-frame-by-name)
+
+  ;; projectile-command-map already has a ton of bindings 
+  ;; set for us, so no need to specify each individually.
+  (my/leader-keys
+    "p" 'projectile-command-map)
+
+  (my/leader-keys
+    "s" '(:ignore t :wk "Search")
+    "s d" 'dictionary-search
+    "s m" 'man
+    "s t" 'tldr
+    "s w" 'woman)
+
+  (my/leader-keys
+    "t" '(:ignore t :wk "Toggle")
+    "t e" 'eshell-toggle
+    "t f" 'flycheck-mode
+    "t l" 'display-line-numbers-mode
+    "t n" 'neotree-toggle
+    "t o" 'org-mode
+    "t r" 'rainbow-mode
+    "t t" 'visual-line-mode)
+
+  (my/leader-keys
+    "w" '(:ignore t :wk "Windows")
+    ;; Window splits
+    "w c" 'evil-window-delete
+    "w n" 'evil-window-new
+    "w s" 'evil-window-split
+    "w v" 'evil-window-vsplit
+    ;; Window motions
+    "w h" 'evil-window-left
+    "w j" 'evil-window-down
+    "w k" 'evil-window-up
+    "w l" 'evil-window-right
+    "w w" 'evil-window-next
+    ;; Move Windows
+    "w H" 'buf-move-left
+    "w J" 'buf-move-down
+    "w K" 'buf-move-up
+    "w L" 'buf-move-right)
+)
 
 (setq org-todo-keywords
       '((sequence "TODO(t!)" "NEXT(n!)" "IN PROGRESS(i!)" "BLOCKED(b@/!)" "PEND SET STATE(p!)" "TO DELEGATE(2!)" "DELEGATED(g@/!)" "FOLLOWUP(f!)" "FORWARDED(>@/!)" "ADJOURNED(a!)" "|" "CANCELED(c!)" "DONE(d!)")))
@@ -378,17 +380,18 @@
 
 ;; Automatically tangle our Emacs.org config file when we save it
 (defun efs/org-babel-tangle-config ()
-  (when (string-equal (buffer-file-name)
+  (when (or (string-equal (buffer-file-name)
                       (concat (expand-file-name user-emacs-directory) "config.org"))
+            (string-equal (buffer-file-name)
+                      (expand-file-name "~/git/dotfiles-dev/emacs/config.org")))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda ()
-                          (add-hook 'after-save-hook #'efs/org-babel-tangle-config))
-                          (local-set-key (kbd "C-c C-i") 'org-clock-in)
-                          (local-set-key (kbd "C-c C-o") 'org-clock-out)
-)
+                          (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
+                          (local-set-key (kbd "C-c i") 'org-clock-in)
+                          (local-set-key (kbd "C-c o") 'org-clock-out)))
 
 (with-eval-after-load 'org
   (org-babel-do-load-languages
