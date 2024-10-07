@@ -74,6 +74,6 @@ fq_emacs=$(which emacs)
 if [[ -x $fq_emacs ]]; then
   already_running=$(ps aux | grep 'emacs --daemon' | grep -v grep)
   if [[ -z $already_running ]]; then
-      eval "$fq_emacs --daemon"
+      eval "$fq_emacs --daemon" 2>/dev/null
   fi
 fi
