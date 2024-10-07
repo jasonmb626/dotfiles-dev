@@ -226,13 +226,9 @@
       "e b" 'eval-buffer
       "e d" 'eval-defun
       "e e" '(eval-expression)
-      "e h"  (counsel-esh-history :which-key "Eshell history")
       "e l" 'eval-last-sexp
-      "e r" 'eval-region
-      "e R" 'eww-reload
-      "e s" 'eshell
-      "e w" 'eww)
-
+      "e r" 'eval-region)
+      
     (my/leader-keys
       "f" '(:ignore t :wk "Files")    
       "f c" '((lambda () (interactive)
