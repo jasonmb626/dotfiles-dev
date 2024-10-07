@@ -197,7 +197,7 @@
 
     (my/leader-keys
       "b" '(:ignore t :wk "Bookmarks/Buffers")
-      "b b" 'switch-to-buffer
+      "b b" 'ido-switch-to-buffer
       "b c" 'clone-indirect-buffer
       "b C" 'clone-indirect-buffer-other-window
       "b d" 'bookmark-delete
@@ -242,7 +242,7 @@
                 (dired "~/.config/emacs/")) 
               :wk "Open user-emacs-directory in dired")
       "f d" '(:ignore t :wk "Dotfiles")
-      "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))
+      "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.config/emacs/config.org")))
       "f D" 'find-grep-dired
       "f g" 'counsel-grep-or-swiper
       "f i" '((lambda () (interactive)
@@ -423,6 +423,7 @@
   ;; ivy-resume resumes the last Ivy-based completion.
   (("C-s" . swiper)
    ("C-c C-r" . ivy-resume)
+   ("C-x b" . ido-switch-buffer)
    ("C-x B" . ivy-switch-buffer-other-window)
    :map ivy-minibuffer-map
    ("TAB" . ivy-alt-done)

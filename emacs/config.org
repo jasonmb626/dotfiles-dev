@@ -334,7 +334,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
       (my/lleader-keys
        "," 'org-ctrl-c-ctrl-c)
-
+       
       (my/leader-keys
         "SPC" 'counsel-M-x
         "." 'find-file
@@ -344,7 +344,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 
       (my/leader-keys
         "b" '(:ignore t :wk "Bookmarks/Buffers")
-        "b b" 'switch-to-buffer
+        "b b" 'ido-switch-to-buffer
         "b c" 'clone-indirect-buffer
         "b C" 'clone-indirect-buffer-other-window
         "b d" 'bookmark-delete
@@ -389,7 +389,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
                   (dired "~/.config/emacs/")) 
                 :wk "Open user-emacs-directory in dired")
         "f d" '(:ignore t :wk "Dotfiles")
-        "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.emacs.d/Emacs.org")))
+        "f d e" '(lambda () (interactive) (find-file (expand-file-name "~/.config/emacs/config.org"))))
         "f D" 'find-grep-dired
         "f g" 'counsel-grep-or-swiper
         "f i" '((lambda () (interactive)
@@ -503,6 +503,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
         "w K" 'buf-move-up
         "w L" 'buf-move-right)
     )
+  )
 
 #+end_src
 
@@ -602,6 +603,7 @@ To execute or export code in =org-mode= code blocks, you'll need to set up =org-
         ;; ivy-resume resumes the last Ivy-based completion.
         (("C-s" . swiper)
          ("C-c C-r" . ivy-resume)
+         ("C-x b" . ido-switch-buffer)
          ("C-x B" . ivy-switch-buffer-other-window)
          :map ivy-minibuffer-map
          ("TAB" . ivy-alt-done)
