@@ -9,8 +9,7 @@ ENV LANG=en_US.UTF-8
 ENV ZDOTDIR=/home/app/.config/zsh/
 ENV XDG_CACHE_HOME=/home/app/.local/cache
 ENV ZETTEL_BASE=/home/app/Documents/zettelkasten
-ENV ORG_TEMPLATES_DIR=/home/app/.config/emacs/doom/templates
-ENV DOOMDIR=/home/app/.config/emacs/doom
+ENV ORG_TEMPLATES_DIR=/home/app/.config/emacs/templates
 
 RUN apk add -U py3-pip npm zsh \
     && sed -i 's,root:x:0:0:root:/root:/bin/ash,root:x:0:0:root:/root:/bin/zsh,g' /etc/passwd \
