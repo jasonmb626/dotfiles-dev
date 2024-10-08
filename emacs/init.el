@@ -786,7 +786,9 @@
          ((tags-todo "URGENT"
                      ((org-agenda-overriding-header "Urgent Tasks")))
           (tags-todo "NEW"
-                     ((org-agenda-overriding-header "New, needs filing")))
+                     ((org-agenda-overriding-header "New, needs tagging")))
+          (tags-todo "TODO=\"PEND STATE\""
+                     ((org-agenda-overriding-header "Pending TODO state update")))
           (tags-todo "RADAR"
                      ((org-agenda-overriding-header "On my radar")))
           (tags-todo "PHONE+TODO=\"NEXT\""
