@@ -447,7 +447,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "C e" 'org-evaluate-time-range
     "C g" 'org-clock-goto
     "C i" 'org-clock-in
-    "C j" 'org-clock-jumpt-to-current-clock
+    "C j" 'my/org-clock-jump-to-current-clock
     "C o" 'org-clock-out
     "C p" 'org-pomodoro
     "C r" 'org-resolve-clocks
@@ -523,7 +523,10 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
     "f i" '((lambda () (interactive)
               (find-file "~/.config/emacs/init.el")) 
             :wk "Open emacs init.el")
-    "f j" 'counsel-file-jump
+    "f j" '((lambda () (interactive)
+              (find-file (concat org-directory "/journal.org")) )
+            :wk "Open emacs journal.org")
+    "f J" 'counsel-file-jump
     "f l" 'counsel-locate
     "f r" 'counsel-recentf
     "f u" 'sudo-edit-find-file
@@ -910,19 +913,19 @@ Org-tempo is not a separate package but a module within org that can be enabled.
   (setq org-log-into-drawer "LOGBOOK") ;when adding a note, put them in logbook drawer
   (setq org-log-reschedule 'time) ;puts a note in logbook drawer when a task is rescheudled
   (setq org-enforce-todo-dependencies t)
-  (setq org-agenda-dim-blocked-tasks t)
   (setq org-enforce-todo-checkbox-dependencies t)
   (setq org-M-RET-may-split-line nil)
   (setq org-ellipsis " ▾")
   (setq org-refile-targets '((org-agenda-files :maxlevel . 3))) ; any agenda file will show up in the list when choosing to refile
-  (setq org-agenda-window-setup 'other-window)
-  (setq org-agenda-use-time-grid t)
 #+end_src
 
 ** Clocking in/out
 #+begin_src emacs-lisp
-  (setq org-clock-in-switch-to-state "IN PROGRESS")
-  (setq org-clock-out-switch-to-state "PEND SET STATE")
+(setq org-clock-in-switch-to-state "IN PROGRESS")
+(setq org-clock-out-switch-to-state "PEND SET STATE")
+(defun my/org-clock-jump-to-current-clock ()
+  (interactive)
+  (org-clock-jump-to-current-clock))
 #+end_src
 
 ** Tags
@@ -950,7 +953,9 @@ Org-tempo is not a separate package but a module within org that can be enabled.
                                     (org-save-all-org-buffers)
                                     ;; (Re)set org-agenda files. Spacemacs auto-updates the list list above in custom-set-variables
                                     (setq org-agenda-files ;Adds all .org files to agenda unless they are in the archive folder
-                                          (seq-filter (lambda(x) (not (string-match "/archive/"(file-name-directory x))))
+                                          (seq-filter (lambda(x) 
+                                                      (not (string-match "/archive/"(file-name-directory x)))
+                                                      (not (string-match "/03-resources/"(file-name-directory x))))
                                                       (directory-files-recursively org-directory "\\.org$")
                                                       ))
                                     ))
@@ -1039,60 +1044,64 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 ** Agenda stuff
 #+begin_src emacs-lisp
-  (setq org-agenda-custom-commands
-        (quote
-         (
-          ("A" . "Agendas")
-          ("AT" "Daily overview"
-           ((tags-todo "URGENT"
-                       ((org-agenda-overriding-header "Urgent Tasks")))
-            (tags-todo "RADAR"
-                       ((org-agenda-overriding-header "On my radar")))
-            (tags-todo "PHONE+TODO=\"NEXT\""
-                       ((org-agenda-overriding-header "Phone Calls")))
-            (tags-todo "Depth=\"Deep\"/NEXT"
-                       ((org-agenda-overriding-header "Next Actions requiring deep work")))
-            (agenda ""
-                    ((org-agenda-overriding-header "Today")
-                     (org-agenda-span 1)
-                     (org-agenda-sorting-strategy
-                      (quote
-                       (time-up priority-down)))))
-            nil nil))
-          ("AW" "Weekly overview" agenda ""
-           ((org-agenda-overriding-header "Weekly overview")))
-          ("AM" "Monthly overview" agenda ""
-           ((org-agenda-overriding-header "Monthly overview"))
-           (org-agenda-span
-            (quote month))
-           (org-deadline-warning-days 0)
-           (org-agenda-sorting-strategy
-            (quote
-             (time-up priority-down tag-up))))
-          ("D" . "DAILY Review Helper")
-          ("Dn" "New tasks" tags "NEW"
-           ((org-agenda-overriding-header "NEW Tasks")))
-          ("Dp" "Pending Set State" tags-todo "PEND SET STATE"
-           ((org-agenda-overriding-header "Tasks Pending Set State")))
-          ("Dd" "Check DELEGATED tasks" todo "DELEGATED"
-           ((org-agenda-overriding-header "DELEGATED tasks")))
-          ("Db" "Check BLOCKED tasks" todo "BLOCKED"
-           ((org-agenda-overriding-header "BLOCKED tasks")))
-          ("Df" "Check finished tasks" todo "DONE|CANCELLED|FORWARDED"
-           ((org-agenda-overriding-header "Finished tasks")))
-          ("DP" "Planing ToDos (unscheduled) only" todo "TODO|NEXT"
-           ((org-agenda-overriding-header "Planning overview")
-            (org-agenda-skip-function
-             (quote
-              (org-agenda-skip-entry-if
-               (quote scheduled)
-               (quote deadline)))))))
-         ))
-  (setq org-agenda-include-diary t)
-  (setq org-agenda-files ;Adds all .org files to agenda unless they are in the archive folder
-        (seq-filter (lambda(x) (not (string-match "/archive/"(file-name-directory x))))
-                    (directory-files-recursively org-directory "\\.org$")
-                    ))
+(setq org-agenda-dim-blocked-tasks t)
+(setq org-agenda-window-setup 'only-window)
+(setq org-agenda-use-time-grid t)
+(setq org-agenda-start-with-log-mode t)
+(setq org-agenda-custom-commands
+      (quote
+       (
+        ("A" . "Agendas")
+        ("AT" "Daily overview"
+         ((tags-todo "URGENT"
+                     ((org-agenda-overriding-header "Urgent Tasks")))
+          (tags-todo "RADAR"
+                     ((org-agenda-overriding-header "On my radar")))
+          (tags-todo "PHONE+TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "Phone Calls")))
+          (tags-todo "Depth=\"Deep\"/NEXT"
+                     ((org-agenda-overriding-header "Next Actions requiring deep work")))
+          (agenda ""
+                  ((org-agenda-overriding-header "Today")
+                   (org-agenda-span 1)
+                   (org-agenda-sorting-strategy
+                    (quote
+                     (time-up priority-down)))))
+          nil nil))
+        ("AW" "Weekly overview" agenda ""
+         ((org-agenda-overriding-header "Weekly overview")))
+        ("AM" "Monthly overview" agenda ""
+         ((org-agenda-overriding-header "Monthly overview"))
+         (org-agenda-span
+          (quote month))
+         (org-deadline-warning-days 0)
+         (org-agenda-sorting-strategy
+          (quote
+           (time-up priority-down tag-up))))
+        ("D" . "DAILY Review Helper")
+        ("Dn" "New tasks" tags "NEW"
+         ((org-agenda-overriding-header "NEW Tasks")))
+        ("Dp" "Pending Set State" tags-todo "PEND SET STATE"
+         ((org-agenda-overriding-header "Tasks Pending Set State")))
+        ("Dd" "Check DELEGATED tasks" todo "DELEGATED"
+         ((org-agenda-overriding-header "DELEGATED tasks")))
+        ("Db" "Check BLOCKED tasks" todo "BLOCKED"
+         ((org-agenda-overriding-header "BLOCKED tasks")))
+        ("Df" "Check finished tasks" todo "DONE|CANCELLED|FORWARDED"
+         ((org-agenda-overriding-header "Finished tasks")))
+        ("DP" "Planing ToDos (unscheduled) only" todo "TODO|NEXT"
+         ((org-agenda-overriding-header "Planning overview")
+          (org-agenda-skip-function
+           (quote
+            (org-agenda-skip-entry-if
+             (quote scheduled)
+             (quote deadline)))))))
+       ))
+(setq org-agenda-include-diary t)
+(setq org-agenda-files ;Adds all .org files to agenda unless they are in the archive folder
+      (seq-filter (lambda(x) (not (string-match "/archive/"(file-name-directory x))))
+                  (directory-files-recursively org-directory "\\.org$")
+                  ))
 #+end_src
 
 * PERSPECTIVE

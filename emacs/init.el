@@ -299,7 +299,7 @@
     "C e" 'org-evaluate-time-range
     "C g" 'org-clock-goto
     "C i" 'org-clock-in
-    "C j" 'org-clock-jumpt-to-current-clock
+    "C j" 'my/org-clock-jump-to-current-clock
     "C o" 'org-clock-out
     "C p" 'org-pomodoro
     "C r" 'org-resolve-clocks
@@ -375,7 +375,10 @@
     "f i" '((lambda () (interactive)
               (find-file "~/.config/emacs/init.el")) 
             :wk "Open emacs init.el")
-    "f j" 'counsel-file-jump
+    "f j" '((lambda () (interactive)
+              (find-file (concat org-directory "/journal.org")) )
+            :wk "Open emacs journal.org")
+    "f J" 'counsel-file-jump
     "f l" 'counsel-locate
     "f r" 'counsel-recentf
     "f u" 'sudo-edit-find-file
@@ -660,16 +663,16 @@
 (setq org-log-into-drawer "LOGBOOK") ;when adding a note, put them in logbook drawer
 (setq org-log-reschedule 'time) ;puts a note in logbook drawer when a task is rescheudled
 (setq org-enforce-todo-dependencies t)
-(setq org-agenda-dim-blocked-tasks t)
 (setq org-enforce-todo-checkbox-dependencies t)
 (setq org-M-RET-may-split-line nil)
 (setq org-ellipsis " ▾")
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3))) ; any agenda file will show up in the list when choosing to refile
-(setq org-agenda-window-setup 'other-window)
-(setq org-agenda-use-time-grid t)
 
 (setq org-clock-in-switch-to-state "IN PROGRESS")
 (setq org-clock-out-switch-to-state "PEND SET STATE")
+(defun my/org-clock-jump-to-current-clock ()
+  (interactive)
+  (org-clock-jump-to-current-clock))
 
 (setq org-tag-alist '(("NEW" . ?N)
                       (:startgroup . nil)
@@ -690,7 +693,9 @@
                                   (org-save-all-org-buffers)
                                   ;; (Re)set org-agenda files. Spacemacs auto-updates the list list above in custom-set-variables
                                   (setq org-agenda-files ;Adds all .org files to agenda unless they are in the archive folder
-                                        (seq-filter (lambda(x) (not (string-match "/archive/"(file-name-directory x))))
+                                        (seq-filter (lambda(x) 
+                                                    (not (string-match "/archive/"(file-name-directory x)))
+                                                    (not (string-match "/03-resources/"(file-name-directory x))))
                                                     (directory-files-recursively org-directory "\\.org$")
                                                     ))
                                   ))
@@ -769,6 +774,10 @@
          (setq my/org-capture-script-file-path my-path)) ; Save variable to be used later in the template
        my/org-capture-script-file-path)
 
+(setq org-agenda-dim-blocked-tasks t)
+(setq org-agenda-window-setup 'only-window)
+(setq org-agenda-use-time-grid t)
+(setq org-agenda-start-with-log-mode t)
 (setq org-agenda-custom-commands
       (quote
        (
