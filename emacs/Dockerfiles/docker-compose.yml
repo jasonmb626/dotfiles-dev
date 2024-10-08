@@ -11,7 +11,7 @@ services:
       - ./app:/app:z
       - dotlocal:/home/app/.local
       - config_dir:/home/app/.config
-      - zettelkasten:/home/app/Documents/zettelkasten
+      - ./zettelkasten:/home/app/Documents/zettelkasten
       #- emacs_eln-cache:/home/app/.config/emacs/eln-cache
       #- elpaca:/home/app/.config/emacs/elpaca
       #- ./emacs_recentf:/home/app/.config/emacs/emacs_recentf:z
@@ -32,5 +32,4 @@ volumes:
   dotlocal:
   emacs_eln-cache:
   elpaca:
-  zettelkasten:
   config_dir:
