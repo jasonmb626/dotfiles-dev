@@ -10,3 +10,7 @@ emacs/Dockerfiles/eln-cache
 emacs/Dockerfiles/elpaca
 emacs/Dockerfiles/auto-save-list
 emacs/Dockerfiles/emacs_sessions
+emacs/#init.el#
+emacs/.cache/
+emacs/.org-id-locations
+emacs/bookmarks
