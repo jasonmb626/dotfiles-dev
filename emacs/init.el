@@ -680,9 +680,9 @@
                       ("NUCLEUS-INC" . ?n)
                       ("TRAINING" . ?r)
                       ("SCRIPTING" . ?s)
-                      ("CUST-MEETING" . ?c)
-                      ("TCS-MEETING" . ?t)
-                      ("CRQ" . ?c)
+                      ("CUST_MEETING" . ?c)
+                      ("TCS_MEETING" . ?t)
+                      ("CRQ" . ?C)
                       ("MISC" . ?m)
                       ("W-O-REQ" . ?w)))
 
