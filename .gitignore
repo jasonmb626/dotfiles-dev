@@ -14,3 +14,4 @@ emacs/#init.el#
 emacs/.cache/
 emacs/.org-id-locations
 emacs/bookmarks
+nvim/
