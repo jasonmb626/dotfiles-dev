@@ -1,4 +1,4 @@
-**** TODO CHECK CURRENT
+** TODO CHECK CURRENT
 =============
 Rate your performance, energy and write a journal entry:
 - [ ] Check last weeks daily plan on how good the performace was

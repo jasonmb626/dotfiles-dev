@@ -1,4 +1,4 @@
-**** TODO DR BOOTUP
+** TODO DR BOOTUP
 =========
 - [ ] Review all "PEND STATE" entries and assign them proper todos
 - [ ] See if there are any updates on incidents sent to other groups.
