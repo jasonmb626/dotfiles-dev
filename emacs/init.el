@@ -180,7 +180,7 @@
     :global-prefix "M-SPC") ;; access leader in insert mode
 
   (general-create-definer my/lleader-keys
-    :states '(normal insert visual emacs)
+    :states '(normal visual emacs)
     :keymaps 'org-mode-map
     :prefix "," ;; set leader
   )
@@ -666,7 +666,7 @@
 (setq org-enforce-todo-checkbox-dependencies t)
 (setq org-M-RET-may-split-line nil)
 (setq org-ellipsis " ▾")
-(setq org-refile-targets '((org-agenda-files :maxlevel . 3))) ; any agenda file will show up in the list when choosing to refile
+(setq org-refile-targets '((org-agenda-files :maxlevel . 2))) ; any agenda file will show up in the list when choosing to refile
 
 (setq org-clock-in-switch-to-state "IN PROGRESS")
 (setq org-clock-out-switch-to-state "PEND SET STATE")
@@ -713,7 +713,7 @@
          "* TODO %^{Description} :NEW:\n  Desired outcome: %?\n  :LOGBOOK:\n  - Added: %U\n  :END:"
          :empty-lines-before 1)
         ("i" "Incoming Phone call" entry
-         (file+olp+datetree "journal.org")
+         (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
          (file "templates/in-call-template.txt"))
         ("o" "Outgoing Phone call" entry
          (file+headline "journal.org" "Capture")
@@ -728,18 +728,18 @@
          (file+headline "journal.org" "Capture")
          (file  ,(concat templates_dir "/meeting-template.txt")))
         ("j" "Journal entry" entry
-         (file+olp+datetree "journal.org")
+         (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
          "* %U - %^{Activity}")
         ("d" "Daily plan" plain
-         (file+olp+datetree "journal.org")
+         (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
          (file  ,(concat templates_dir "/tpl-daily-plan.txt"))
          :immediate-finish t)
         ("w" "Daily plan" plain
-         (file+olp+datetree "journal.org")
+         (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
          (file  ,(concat templates_dir "/tpl-weekly-plan.txt"))
          :immediate-finish t)
         ("m" "Monthly plan" plain
-         (file+olp+datetree "journal.org")
+         (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
          (file  ,(concat templates_dir "/tpl-monthly-plan.txt"))
          :immediate-finish t)
         ))
@@ -785,19 +785,25 @@
         ("AT" "Daily overview"
          ((tags-todo "URGENT"
                      ((org-agenda-overriding-header "Urgent Tasks")))
+          (tags-todo "NEW"
+                     ((org-agenda-overriding-header "New, needs filing")))
           (tags-todo "RADAR"
                      ((org-agenda-overriding-header "On my radar")))
           (tags-todo "PHONE+TODO=\"NEXT\""
                      ((org-agenda-overriding-header "Phone Calls")))
           (tags-todo "Depth=\"Deep\"/NEXT"
                      ((org-agenda-overriding-header "Next Actions requiring deep work")))
+          (tags-todo "TODO=\"BLOCKED\""
+                     ((org-agenda-overriding-header "Blocked")))
           (agenda ""
                   ((org-agenda-overriding-header "Today")
                    (org-agenda-span 1)
                    (org-agenda-sorting-strategy
                     (quote
                      (time-up priority-down)))))
-          nil nil))
+          (tags-todo "TODO=\"TODO\"|TODO=\"NEXT\""
+                     ((org-agenda-overriding-header "All Todos"))))
+          nil nil)
         ("AW" "Weekly overview" agenda ""
          ((org-agenda-overriding-header "Weekly overview")))
         ("AM" "Monthly overview" agenda ""
