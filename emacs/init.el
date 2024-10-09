@@ -683,7 +683,7 @@
                       ("TCS_MEETING" . ?t)
                       ("CRQ" . ?C)
                       ("MISC" . ?m)
-                      ("W-O-REQ" . ?w)))
+                      ("W_O_REQ" . ?w)))
 
 ;; Save Org buffers after refiling!
 (advice-add 'org-refile :after 'org-save-all-org-buffers)

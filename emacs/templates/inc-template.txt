@@ -1,4 +1,4 @@
-* %^{Incident #}
+* %^{Incident #} :INCIDENT:
   :PROPERTIES:
   :SUMMARY:
   :ID: %\1

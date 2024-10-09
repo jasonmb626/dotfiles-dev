@@ -940,7 +940,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
                         ("TCS_MEETING" . ?t)
                         ("CRQ" . ?C)
                         ("MISC" . ?m)
-                        ("W-O-REQ" . ?w)))
+                        ("W_O_REQ" . ?w)))
 
 #+end_src
 
