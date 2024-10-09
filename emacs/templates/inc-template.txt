@@ -1,8 +1,7 @@
-* %(format my/org-capture-inc)
+* %^{Incident #}
   :PROPERTIES:
   :SUMMARY:
-  :ID: %(format my/org-capture-inc)
-  :STORE:
+  :ID: %\1
   :POC:
   :CREATED: %U
  :END:

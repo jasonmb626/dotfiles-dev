@@ -700,13 +700,42 @@
                                                     ))
                                   ))
 
+(defun my/generate-new-store-file-name () "Ask for a title and generate a file name based on it"
+       (interactive)
+       (let* ((store_nbr (read-string "Store #: "))
+              (my-path (concat
+                        "2-areas/str"
+                        store_nbr
+                        ".org")))
+         (setq my/org-capture-store_nbr store_nbr)
+         (setq my/org-capture-store_nbr-file_path my-path)) ; Save variable to be used later in the template
+       my/org-capture-store_nbr-file_path)
+(defun my/ask-store-nbr-inc () "Ask for a title and generate a file name based on it"
+       (interactive)
+       (let ((store_nbr (read-string "Store #: "))
+              (inc (read-string "Incident #: ")))
+         (setq my/org-capture-store_nbr store_nbr)
+         (setq my/org-capture-inc inc)) ; Save variable to be used later in the template
+       (concat "str" my/org-capture-store_nbr))
+(defun my/generate-new-script-file-name () "Ask for a title and generate a file name based on it"
+       (let* ((script_name (read-string "Script Name: "))
+              (my-path (concat
+                        "1-projects/script_"
+                        script_name
+                        ".org")))
+         (setq my/org-capture-script-name script_name)
+         (setq my/org-capture-script-file-path my-path)) ; Save variable to be used later in the template
+       my/org-capture-script-file-path)
+
 (setq org-capture-templates
       `(
         ("S" "Store" entry
          (file (lambda() (interactive) (my/generate-new-store-file-name)))
          (file  ,(concat templates_dir "/store-template.txt")))
         ("I" "Incident" entry
-         (file (lambda() (interactive) (my/generate-new-inc-file-name)))
+         (file+function buffer-file-name (lambda () 
+                                          (org-back-to-heading)
+                                          (org-element-property :end (org-element-at-point))))
          (file  ,(concat templates_dir "/inc-template.txt")))
         ("t" "TODO entry" entry
          (file+headline "journal.org" "Capture")
@@ -743,36 +772,6 @@
          (file  ,(concat templates_dir "/tpl-monthly-plan.txt"))
          :immediate-finish t)
         ))
-
-(defun my/generate-new-store-file-name () "Ask for a title and generate a file name based on it"
-       (let* ((store_nbr (read-string "Store #: "))
-              (my-path (concat
-                        "2-areas/str"
-                        store_nbr
-                        ".org")))
-         (setq my/org-capture-store_nbr store_nbr)
-         (setq my/org-capture-store_nbr-file_path my-path)) ; Save variable to be used later in the template
-       my/org-capture-store_nbr-file_path)
-(defun my/generate-new-inc-file-name () "Ask for a title and generate a file name based on it"
-       (let* ((inc (read-string "Incident #: "))
-                                      ;(store (read-string "Store #: ")) #Might change to prompt user for addl details like store#, POC, phone #, summary later.
-              (my-path (concat
-                        "1-projects/"
-                        inc
-                        ".org")))
-                                      ;(setq my/org-capture-store_nbr store_nbr)
-         (setq my/org-capture-inc inc)
-         (setq my/org-capture-inc-file_path my-path)) ; Save variable to be used later in the template
-       my/org-capture-inc-file_path)
-(defun my/generate-new-script-file-name () "Ask for a title and generate a file name based on it"
-       (let* ((script_name (read-string "Script Name: "))
-              (my-path (concat
-                        "1-projects/script_"
-                        script_name
-                        ".org")))
-         (setq my/org-capture-script-name script_name)
-         (setq my/org-capture-script-file-path my-path)) ; Save variable to be used later in the template
-       my/org-capture-script-file-path)
 
 (setq org-agenda-dim-blocked-tasks t)
 (setq org-agenda-window-setup 'only-window)
