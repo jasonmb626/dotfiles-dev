@@ -1,10 +1,10 @@
 * %(format my/org-capture-inc)
   :PROPERTIES:
-  SUMMARY:
-  ID: %(format my/org-capture-inc)
-  STORE:
-  POC:
-  CREATED: %U
+  :SUMMARY:
+  :ID: %(format my/org-capture-inc)
+  :STORE:
+  :POC:
+  :CREATED: %U
  :END:
  
  %?
