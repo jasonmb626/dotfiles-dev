@@ -522,6 +522,7 @@
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda ()
+                          (setq display-line-numbers 'relative)
                           (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
                           (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo)))
 
@@ -883,6 +884,7 @@
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 (global-auto-revert-mode t)  ;; Automatically show changes if the file has changed
 (global-display-line-numbers-mode 1) ;; Display line numbers
+(setq display-line-numbers 'relative)
 (global-visual-line-mode t)  ;; Enable truncated lines
 (menu-bar-mode -1)           ;; Disable the menu bar 
 (tool-bar-mode -1)           ;; Disable the tool bar
