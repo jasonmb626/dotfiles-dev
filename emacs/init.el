@@ -703,7 +703,8 @@
        (interactive)
        (let* ((store_nbr (read-string "Store #: "))
               (my-path (concat
-                        "2-areas/str"
+			      org-directory
+                        "/2-areas/str"
                         store_nbr
                         ".org")))
          (setq my/org-capture-store_nbr store_nbr)
@@ -752,7 +753,7 @@
         ("s" "Script" entry
          (file (lambda() (interactive) (my/generate-new-script-file-name)))
          (file  ,(concat templates_dir "/script-template.txt")))
-        ("m" "Meeting" entry
+        ("m" entry
          (file+headline "journal.org" "Capture")
          (file  ,(concat templates_dir "/meeting-template.txt")))
         ("j" "Journal entry" entry

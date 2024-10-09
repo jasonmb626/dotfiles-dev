@@ -1,4 +1,4 @@
-* %(format my/org-capture-store_nbr)
+* str%(format my/org-capture-store_nbr)
   :PROPERTIES:
   :ID: str%(format my/org-capture-store_nbr)
   :CREATED: %U
