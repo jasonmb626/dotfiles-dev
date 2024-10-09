@@ -720,7 +720,8 @@
 (defun my/generate-new-script-file-name () "Ask for a title and generate a file name based on it"
        (let* ((script_name (read-string "Script Name: "))
               (my-path (concat
-                        "1-projects/script_"
+			      org-directory
+                        "/1-projects/script_"
                         script_name
                         ".org")))
          (setq my/org-capture-script-name script_name)
