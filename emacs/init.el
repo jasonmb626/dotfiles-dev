@@ -753,7 +753,7 @@
         ("s" "Script" entry
          (file (lambda() (interactive) (my/generate-new-script-file-name)))
          (file  ,(concat templates_dir "/script-template.txt")))
-        ("m" entry
+        ("m" "Meeting" entry
          (file+headline "journal.org" "Capture")
          (file  ,(concat templates_dir "/meeting-template.txt")))
         ("j" "Journal entry" entry
