@@ -191,7 +191,7 @@
    "[" 'org-agenda-file-to-front
    "]" 'org-remove-file
    "a" 'org-agenda
-   "c" 'org-capture
+   "C" 'org-capture
    )
   
   (my/lleader-keys
@@ -293,18 +293,18 @@
   )
 
   (my/lleader-keys
-    "C" '(:ignore t :wk "clocks")
-    "C c" 'org-clock-cancel
-    "C d" 'org-clock-display
-    "C e" 'org-evaluate-time-range
-    "C g" 'org-clock-goto
-    "C i" 'org-clock-in
-    "C j" 'my/org-clock-jump-to-current-clock
-    "C o" 'org-clock-out
-    "C p" 'org-pomodoro
-    "C r" 'org-resolve-clocks
-    "C I" 'org-clock-in-last
-    "C R" 'org-clock-report
+    "c" '(:ignore t :wk "clocks")
+    "c c" 'org-clock-cancel
+    "c d" 'org-clock-display
+    "c e" 'org-evaluate-time-range
+    "c g" 'org-clock-goto
+    "c i" 'org-clock-in
+    "c j" 'my/org-clock-jump-to-current-clock
+    "c o" 'org-clock-out
+    "c p" 'org-pomodoro
+    "c r" 'org-resolve-clocks
+    "c I" 'org-clock-in-last
+    "c R" 'org-clock-report
   )
 
   (my/lleader-keys
@@ -523,8 +523,6 @@
 
 (add-hook 'org-mode-hook (lambda ()
                           (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
-                          (local-set-key (kbd "C-c i") 'org-clock-in)
-                          (local-set-key (kbd "C-c o") 'org-clock-out)
                           (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo)))
 
 (with-eval-after-load 'org
