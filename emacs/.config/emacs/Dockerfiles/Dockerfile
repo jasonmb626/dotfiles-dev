@@ -28,8 +28,8 @@ RUN apk update -U \
         wl-clipboard\
         sudo \
         unzip gzip fd mercurial wget\
+    && echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config \
     && ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime \
-    && rm /etc/ssh/sshd_config \
     && addgroup -g ${GID} app \
     && adduser -D -u ${UID} -G app -s /bin/zsh app \
     && passwd -d app \
@@ -48,7 +48,7 @@ RUN apk update -U \
     && mkdir -p /home/app/Documents/zettelkasten \
     && git clone https://github.com/jasonmb626/dotfiles-dev.git /tmp/dotfiles-dev \
     && mv /tmp/dotfiles-dev/emacs /home/app/.config \
-    && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && mkdir /home/app/.config/emacs/bin \
+    && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && mkdir -p /home/app/.config/emacs/bin \
     && touch /home/app/.config/emacs/recentf && touch /home/app/.config/emacs/projectile-bookmarks.eld && touch /home/app/.config/emacs/sessions \
     && mv /tmp/dotfiles-dev/tmux/tmux.conf /home/app/.config/tmux/tmux.conf \
     && mv /tmp/dotfiles-dev/zsh /home/app/.config/ && rm -fr /tmp/dotfiles-dev \

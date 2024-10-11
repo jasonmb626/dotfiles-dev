@@ -20,6 +20,8 @@ services:
     stdin_open: true
     tty: true
     user: 1000:1000
+    ports:
+      - "22:22"
     environment:
       XDG_RUNTIME_DIR: /tmp
       TERM: xterm-256color
