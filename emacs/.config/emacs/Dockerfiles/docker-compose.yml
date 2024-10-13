@@ -9,14 +9,10 @@ services:
     restart: always
     volumes:
       - ./app:/app:z
+      - ./zettelkasten:/home/app/Documents/zettelkasten:z
       - dotlocal:/home/app/.local
-      - config_dir:/home/app/.config
-      - ./zettelkasten:/home/app/Documents/zettelkasten
-      #- emacs_eln-cache:/home/app/.config/emacs/eln-cache
-      #- elpaca:/home/app/.config/emacs/elpaca
-      #- ./emacs_recentf:/home/app/.config/emacs/emacs_recentf:z
-      #- ./projectile-bookmarks.eld:/home/app/.config/emacs/projectile-bookmarks.eld:z
-      #- ./emacs_sessions:/home/app/.config/emacs/sessions:z
+      - dotfiles_dir:/home/app/.dotfiles
+      - nvim_dir:/home/app/.config/nvim
     stdin_open: true
     tty: true
     user: 1000:1000
@@ -32,6 +28,5 @@ services:
         #      - label:type:container_runtime_t
 volumes:
   dotlocal:
-  emacs_eln-cache:
-  elpaca:
-  config_dir:
+  dotfiles_dir:
+  nvim_dir:
