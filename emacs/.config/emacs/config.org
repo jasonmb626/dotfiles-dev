@@ -639,11 +639,11 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
 ** TODO list
 #+begin_src emacs-lisp
   (setq org-todo-keywords
-      '((sequence "TODO(t!)" "NEXT(n!)" "IN PROGRESS(i!)" "BLOCKED(b@/!)" "PEND SET STATE(p!)" "TO DELEGATE(2!)" "DELEGATED(g@/!)" "FOLLOWUP(f!)" "FORWARDED(>@/!)" "ADJOURNED(a!)" "|" "CANCELED(c!)" "DONE(d!)")))
+      '((sequence "TODO(t!)" "NEXT(n!)" "PROG(p!)" "BLOCKED(b@/!)" "?(?!)" "TO DELEGATE(2!)" "DELEGATED(g@/!)" "FOLLOWUP(f!)" "FORWARDED(>@/!)" "ADJOURNED(a!)" "TICKLE(T!)" "|" "CANCELED(c!)" "DONE(d!)")))
 
   (setq org-todo-keyword-faces
         '(("TODO" . org-warning)
-          ("IN-PROGRESS" . "#E35DBF")
+          ("PROG" . "#E35DBF")
           ("CANCELED" . (:foreground "white" :background "#4d4d4d" :weight bold))
           ("DELEGATED" . "pink")
           ("NEXT" . "#008080")))
@@ -918,8 +918,8 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 
 ** Clocking in/out
 #+begin_src emacs-lisp
-(setq org-clock-in-switch-to-state "IN PROGRESS")
-(setq org-clock-out-switch-to-state "PEND SET STATE")
+(setq org-clock-in-switch-to-state "PROG")
+(setq org-clock-out-switch-to-state "?")
 (defun my/org-clock-jump-to-current-clock ()
   (interactive)
   (org-clock-jump-to-current-clock))
@@ -1019,9 +1019,56 @@ Org-tempo is not a separate package but a module within org that can be enabled.
           ("s" "Script" entry
            (file (lambda() (interactive) (my/generate-new-script-file-name)))
            (file  ,(concat templates_dir "/script-template.txt")))
-          ("m" "Meeting" entry
-           (file+headline "journal.org" "Capture")
-           (file  ,(concat templates_dir "/meeting-template.txt")))
+          ("m" "Meeting")
+          ("mc" "Checkpoint - T1/T2" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* Checkpoint T1/T2 :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a") 
+                " 09:30>")
+           :immediate-finish t)
+          ("mg" "Generic" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* %^{Title: } :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a")
+                ">")
+           :immediate-finish t)
+          ("mj" "JTF" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* JTF :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a") 
+                " 10:45>")
+           :immediate-finish t)
+          ("mn" "Nucleus Blocker" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* Nucleus Blocker :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a") 
+                " 08:30>")
+           :immediate-finish t)
+          ("mN" "Nucleus Scrum" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* Nucleus Scrum :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a") 
+                " 13:00>")
+           :immediate-finish t)
+          ("mt" "Team meeting" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* Team Meeting :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a") 
+                " 11:30>")
+           :immediate-finish t)
+          ("mw" "Workarounds (CSS scripts/jobs)" entry
+           (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
+           ,(concat 
+                 "* Workarounds (CSS scripts/jobs) :CUST_MEETING:\nSCHEDULED: <" 
+                (format-time-string "%Y-%m-%d %a") 
+                " 09:30>")
+           :immediate-finish t)
           ("j" "Journal entry" entry
            (file+headline "journal.org" ,(format-time-string "%Y-%m-%d %A"))
            "* %U - %^{Activity}")
@@ -1051,18 +1098,12 @@ Org-tempo is not a separate package but a module within org that can be enabled.
        (
         ("A" . "Agendas")
         ("AT" "Daily overview"
-         ((tags-todo "URGENT"
-                     ((org-agenda-overriding-header "Urgent Tasks")))
-          (tags-todo "NEW"
+         ((tags-todo "NEW"
                      ((org-agenda-overriding-header "New, needs tagging")))
-          (tags-todo "TODO=\"PEND STATE\""
+          (tags-todo "TODO=\"?\""
                      ((org-agenda-overriding-header "Pending TODO state update")))
-          (tags-todo "RADAR"
-                     ((org-agenda-overriding-header "On my radar")))
-          (tags-todo "PHONE+TODO=\"NEXT\""
-                     ((org-agenda-overriding-header "Phone Calls")))
-          (tags-todo "Depth=\"Deep\"/NEXT"
-                     ((org-agenda-overriding-header "Next Actions requiring deep work")))
+          (tags-todo "TICKLE"
+                     ((org-agenda-overriding-header "Tickler")))
           (tags-todo "TODO=\"BLOCKED\""
                      ((org-agenda-overriding-header "Blocked")))
           (agenda ""
@@ -1087,7 +1128,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
         ("D" . "DAILY Review Helper")
         ("Dn" "New tasks" tags "NEW"
          ((org-agenda-overriding-header "NEW Tasks")))
-        ("Dp" "Pending Set State" tags-todo "PEND SET STATE"
+        ("Dp" "Pending Set State" tags-todo "?"
          ((org-agenda-overriding-header "Tasks Pending Set State")))
         ("Dd" "Check DELEGATED tasks" todo "DELEGATED"
          ((org-agenda-overriding-header "DELEGATED tasks")))
