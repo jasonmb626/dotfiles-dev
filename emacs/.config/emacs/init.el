@@ -516,13 +516,12 @@
   (when (or (string-equal (buffer-file-name)
                       (concat (expand-file-name user-emacs-directory) "config.org"))
             (string-equal (buffer-file-name)
-                      (expand-file-name "~/git/dotfiles-dev/emacs/config.org")))
+                      (expand-file-name "~/.dotfiles/emacs/.config/emacs/config.org")))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda ()
-                          (setq display-line-numbers 'relative)
                           (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
                           (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo)))
 
@@ -640,11 +639,11 @@
     :commands toc-org-enable
     :init (add-hook 'org-mode-hook 'toc-org-enable))
 
-(add-hook 'org-mode-hook 'org-indent-mode)
-(use-package org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-superstar)
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 
 (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+(add-hook 'org-mode-hook 'org-indent-mode)
 
 (with-eval-after-load 'org
     ;; This is needed as of Org 9.2
@@ -881,6 +880,7 @@
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
 ;; Otherwise, org-tempo is broken when you try to <s TAB...
 (add-hook 'org-mode-hook (lambda ()
+           (setq display-line-numbers 'relative)
            (setq-local electric-pair-inhibit-predicate
                    `(lambda (c)
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))

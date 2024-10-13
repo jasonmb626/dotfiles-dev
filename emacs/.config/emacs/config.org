@@ -6,8 +6,6 @@ TITLE: Jason's Emacs config
 #+OPTIONS: toc:2
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
-
-
 * TABLE OF CONTENTS :toc:
 - [[#acknowledgements][Acknowledgements]]
 - [[#preamble][Preamble]]
@@ -39,7 +37,7 @@ TITLE: Jason's Emacs config
 - [[#neotree][NEOTREE]]
 - [[#org-mode][ORG MODE]]
   - [[#enabling-table-of-contents][Enabling Table of Contents]]
-  - [[#enabling-org-bullets][Enabling Org Bullets]]
+  - [[#enabling-org-superstar][Enabling Org Superstar]]
   - [[#diminish-org-indent-mode][Diminish Org Indent Mode]]
   - [[#source-code-block-tag-expansion][Source Code Block Tag Expansion]]
   - [[#directories][Directories]]
@@ -676,13 +674,12 @@ This snippet adds a hook to =org-mode= buffers so that =efs/org-babel-tangle-con
   (when (or (string-equal (buffer-file-name)
                       (concat (expand-file-name user-emacs-directory) "config.org"))
             (string-equal (buffer-file-name)
-                      (expand-file-name "~/git/dotfiles-dev/emacs/config.org")))
+                      (expand-file-name "~/.dotfiles/emacs/.config/emacs/config.org")))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda ()
-                          (setq display-line-numbers 'relative)
                           (add-hook 'after-save-hook #'efs/org-babel-tangle-config)
                           (evil-define-key 'normal org-mode-map (kbd "t") 'org-todo)))
 
@@ -858,13 +855,12 @@ Neotree is a file tree viewer.  When you open neotree, it jumps to the current f
     :init (add-hook 'org-mode-hook 'toc-org-enable))
 #+end_src
 
-** Enabling Org Bullets
-Org-bullets gives us attractive bullets rather than asterisks.
+** Enabling Org Superstar
+Org-superstar gives us attractive bullets rather than asterisks and is a kind of replacement for org-bullets (no longer maintained).
 
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook 'org-indent-mode)
-(use-package org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(use-package org-superstar)
+(add-hook 'org-mode-hook (lambda () (org-superstar-mode 1)))
 #+end_src
 
 ** Diminish Org Indent Mode
@@ -872,6 +868,7 @@ Removes "Ind" from showing in the modeline.
 
 #+begin_src emacs-lisp
 (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+(add-hook 'org-mode-hook 'org-indent-mode)
 #+end_src
 
 ** Source Code Block Tag Expansion
@@ -1179,6 +1176,7 @@ The following settings are simple modes that are enabled (or disabled) so that E
 ;; The following prevents <> from auto-pairing when electric-pair-mode is on.
 ;; Otherwise, org-tempo is broken when you try to <s TAB...
 (add-hook 'org-mode-hook (lambda ()
+           (setq display-line-numbers 'relative)
            (setq-local electric-pair-inhibit-predicate
                    `(lambda (c)
                   (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
