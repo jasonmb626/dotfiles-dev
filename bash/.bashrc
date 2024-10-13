@@ -83,7 +83,7 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -x /usr/sbin/sshd ]]; then
     SSHD_PID=$(ps aux | grep sshd | grep -v grep | awk '{print $2}')
     if [[ -z $SSHD_PID ]]; then
-      exec sudo /usr/sbin/sshd -D -e "$@" &
+      exec sudo /usr/sbin/sshd -D -e "$@" 2>/dev/null &
     fi
   fi
 fi
