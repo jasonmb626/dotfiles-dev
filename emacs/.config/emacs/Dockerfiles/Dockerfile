@@ -56,3 +56,5 @@ CMD ["tmux"]
 
 #If cloning rainbow-mode hangs exit and try cloning it manually via https instead of git:
 #git clone --single-branch --branch externals/rainbow-mode https://git.savannah.gnu.org/git/emacs/elpa.git /home/app/.config/emacs/elpaca/repos/rainbow-mode
+#If lsp-mode hangs/fails try cloning it manually with depth 1:
+#git clone --depth 1 https://github.com/emacs-lsp/lsp-mode.git /home/app/.config/emacs/elpaca/repos/lsp-mode/
