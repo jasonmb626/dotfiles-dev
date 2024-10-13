@@ -8,6 +8,7 @@ emacs/.config/emacs/Dockerfiles/eln-cache
 emacs/.config/emacs/Dockerfiles/elpaca
 emacs/.config/emacs/Dockerfiles/auto-save-list
 emacs/.config/emacs/Dockerfiles/emacs_sessions
+emacs/.config/emacs/Dockerfiles/zettelkasten
 emacs/.config/emacs/#init.el#
 emacs/.config/emacs/.cache/
 emacs/.config/emacs/.org-id-locations
