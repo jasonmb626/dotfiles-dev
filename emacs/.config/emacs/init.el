@@ -317,7 +317,7 @@
 
   (my/leader-keys
     "SPC" 'counsel-M-x
-    "RET" 'org-insert-heading
+    "RET" 'org-insert-heading-respect-content
     "." 'find-file
     "=" 'perspective-map ;; Lists all the perspective keybindings
     "TAB TAB" 'comment-line
