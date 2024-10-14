@@ -25,6 +25,7 @@ RUN zypper -n refresh \
               pciutils \
               bc \
               vim \
+              firewalld \
     && echo -e 'PasswordAuthentication yes\nPermitEmptyPasswords yes' >> /etc/ssh/sshd_config \
     && ssh-keygen -A \
     && rm /etc/localtime 2>dev/null \
@@ -56,3 +57,12 @@ CMD ["tmux"]
 
 #If cloning rainbow-mode hangs exit and try cloning it manually via https instead of git:
 #git clone --single-branch --branch externals/rainbow-mode https://git.savannah.gnu.org/git/emacs/elpa.git /home/app/.config/emacs/elpaca/repos/rainbow-mode
+#If lsp-mode hangs/fails try cloning it manually with depth 1:
+#git clone --depth 1 https://github.com/emacs-lsp/lsp-mode.git /home/app/.config/emacs/elpaca/repos/lsp-mode/
+
+#Consider limiting IP ssh access
+#https://serverfault.com/questions/680780/block-all-but-a-few-ips-with-firewalld
+#firewall-cmd --zone=internal --add-service=ssh
+#firewall-cmd --zone=internal --add-source=192.168.56.105/32
+#firewall-cmd --zone=internal --add-source=192.168.56.120/32
+#firewall-cmd --zone=public --remove-service=ssh
