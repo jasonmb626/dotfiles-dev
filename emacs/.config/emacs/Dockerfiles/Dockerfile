@@ -53,7 +53,7 @@ RUN rm /home/app/.bashrc && stow bash \
     && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && mkdir -p /home/app/.config/emacs/bin \
     && touch /home/app/.config/emacs/recentf && touch /home/app/.config/emacs/projectile-bookmarks.eld && touch /home/app/.config/emacs/sessions
 WORKDIR /home/app/Documents/zettelkasten
-CMD ["tmux"]
+CMD ["bash"]
 
 #If cloning rainbow-mode hangs exit and try cloning it manually via https instead of git:
 #git clone --single-branch --branch externals/rainbow-mode https://git.savannah.gnu.org/git/emacs/elpa.git /home/app/.config/emacs/elpaca/repos/rainbow-mode
