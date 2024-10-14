@@ -32,9 +32,9 @@ set -o vi
 
 ##-----------------------------------------------------
 ## synth-shell-greeter.sh
-if [ -f /usr/local/bin/synth-shell-greeter.sh ] && [ -n "$(echo $- | grep i)" ]; then
-  source /usr/local/bin/synth-shell-greeter.sh
-fi
+#if [ -f /usr/local/bin/synth-shell-greeter.sh ] && [ -n "$(echo $- | grep i)" ]; then
+#  source /usr/local/bin/synth-shell-greeter.sh
+#fi
 
 ##-----------------------------------------------------
 ## synth-shell-prompt.sh
