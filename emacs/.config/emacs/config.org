@@ -338,7 +338,7 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
    "[" 'org-agenda-file-to-front
    "]" 'org-remove-file
    "a" 'org-agenda
-   "C" 'org-capture
+   "c" 'org-capture
    )
   
   (my/lleader-keys
@@ -348,11 +348,22 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   )
 
   (my/lleader-keys
-    "d" '(:ignore t :wk "dates")
+    "d" '(:ignore t :wk "dates/times/clocks")
+    "d =" 'org-resolve-clocks
+    "d c" 'org-clock-cancel
     "d d" 'org-deadline
+    "d e" 'org-evaluate-time-range
+    "d g" 'org-clock-goto
+    "d i" 'org-clock-in
+    "d j" 'my/org-clock-jump-to-current-clock
+    "d l" 'org-clock-in-last
+    "d o" 'org-clock-out
+    "d p" 'org-pomodoro
+    "d r" 'org-clock-report
     "d s" 'org-schedule
     "d t" 'org-time-stamp
     "d T" 'org-time-stamp-inactive
+    "d u" 'org-clock-display
   )
 
   (my/lleader-keys
@@ -437,21 +448,6 @@ You can use the bindings CTRL plus =/- for zooming in/out.  You can also use CTR
   (my/lleader-keys
     "x" '(:ignore t :wk "text")
     "x o" 'org-open-at-point
-  )
-
-  (my/lleader-keys
-    "c" '(:ignore t :wk "clocks")
-    "c c" 'org-clock-cancel
-    "c d" 'org-clock-display
-    "c e" 'org-evaluate-time-range
-    "c g" 'org-clock-goto
-    "c i" 'org-clock-in
-    "c j" 'my/org-clock-jump-to-current-clock
-    "c o" 'org-clock-out
-    "c p" 'org-pomodoro
-    "c r" 'org-resolve-clocks
-    "c I" 'org-clock-in-last
-    "c R" 'org-clock-report
   )
 
   (my/lleader-keys
