@@ -29,7 +29,7 @@ RUN zypper -n refresh \
               unzip
 RUN echo -e 'PasswordAuthentication yes\nPermitEmptyPasswords yes' >> /etc/ssh/sshd_config \
     && ssh-keygen -A \
-    && rm /etc/localtime 2>dev/null \
+    && rm -f /etc/localtime 2>dev/null \
     && ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime \
     && groupadd -g ${GID} app \
     && useradd -u ${UID} -g 1000 app \
@@ -48,7 +48,7 @@ RUN echo -e 'PasswordAuthentication yes\nPermitEmptyPasswords yes' >> /etc/ssh/s
 
 USER app:app
 WORKDIR /home/app/.dotfiles
-RUN rm /home/app/.bashrc && stow bash \
+RUN rm -f /home/app/.bashrc && stow bash \
     && stow tmux \
     && stow emacs \
     && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && mkdir -p /home/app/.config/emacs/bin \
