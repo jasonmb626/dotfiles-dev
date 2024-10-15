@@ -903,6 +903,7 @@ Org-tempo is not a separate package but a module within org that can be enabled.
 #+begin_src emacs-lisp
   (setq org-track-ordered-property-with-tag t)
   (setq org-use-property-inheritance t)
+  (setq org-use-tag-inheritance nil)
   (setq org-log-into-drawer "LOGBOOK") ;when adding a note, put them in logbook drawer
   (setq org-log-reschedule 'time) ;puts a note in logbook drawer when a task is rescheudled
   (setq org-enforce-todo-dependencies t)
