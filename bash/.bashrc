@@ -38,9 +38,9 @@ set -o vi
 
 ##-----------------------------------------------------
 ## synth-shell-prompt.sh
-if [ -f /usr/local/bin/synth-shell-prompt.sh ] && [ -n "$(echo $- | grep i)" ]; then
-  source /usr/local/bin/synth-shell-prompt.sh
-fi
+#if [ -f /usr/local/bin/synth-shell-prompt.sh ] && [ -n "$(echo $- | grep i)" ]; then
+#  source /usr/local/bin/synth-shell-prompt.sh
+#fi
 
 ##-----------------------------------------------------
 ## better-ls
@@ -50,15 +50,15 @@ fi
 
 ##-----------------------------------------------------
 ## alias
-if [ -f /usr/local/bin/alias.sh ] && [ -n "$(echo $- | grep i)" ]; then
-  source /usr/local/bin/alias.sh
-fi
+#if [ -f /usr/local/bin/alias.sh ] && [ -n "$(echo $- | grep i)" ]; then
+#  source /usr/local/bin/alias.sh
+#fi
 
 ##-----------------------------------------------------
 ## better-history
-if [ -f /usr/local/bin/better-history.sh ] && [ -n "$(echo $- | grep i)" ]; then
-  source /usr/local/bin/better-history.sh
-fi
+#if [ -f /usr/local/bin/better-history.sh ] && [ -n "$(echo $- | grep i)" ]; then
+#  source /usr/local/bin/better-history.sh
+#fi
 #Aliases
 
 #Git
@@ -91,3 +91,6 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
     fi
   fi
 fi
+
+eval "$(oh-my-posh init bash)"
+
