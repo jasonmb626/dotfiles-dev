@@ -50,6 +50,7 @@ USER app:app
 WORKDIR /home/app/.dotfiles
 RUN rm -f /home/app/.bashrc && stow bash \
     && stow tmux \
+    && git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm \
     && stow emacs \
     && mkdir -p /home/app/.config/emacs/eln-cache && mkdir -p /home/app/.config/emacs/elpaca && mkdir -p /home/app/.config/emacs/bin \
     && touch /home/app/.config/emacs/recentf && touch /home/app/.config/emacs/projectile-bookmarks.eld && touch /home/app/.config/emacs/sessions

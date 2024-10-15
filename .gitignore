@@ -14,3 +14,4 @@ emacs/.config/emacs/.cache/
 emacs/.config/emacs/.org-id-locations
 emacs/.config/emacs/bookmarks
 nvim/
+tmux/.config/tmux/plugins/
