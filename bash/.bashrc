@@ -1,5 +1,9 @@
 # .bashrc
 
+if [[ -x ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh ]]; then
+    ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh | grep -v 'Already installed'
+fi
+
 #Start tmux automatically
 if [ -z "$TMUX" ]; then
   tmux -u attach -t TMUX || tmux -u new -s TMUX
