@@ -94,7 +94,7 @@ fi
 
 if [[ -x $(which oh-my-posh) ]]; then
     if [[ -f ~/.local/share/themes/dracula.omp.json ]]; then
-        eval "$(oh-my-posh init bash -- config ~/.local/share/themes/dracula.omp.json)"
+        eval "$(oh-my-posh init bash --config ~/.local/share/themes/dracula.omp.json)"
     else
         eval "$(oh-my-posh init bash)"
     fi
