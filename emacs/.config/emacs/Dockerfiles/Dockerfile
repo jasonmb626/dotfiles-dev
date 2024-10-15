@@ -26,7 +26,8 @@ RUN zypper -n refresh \
               bc \
               vim \
               firewalld \
-    && echo -e 'PasswordAuthentication yes\nPermitEmptyPasswords yes' >> /etc/ssh/sshd_config \
+              unzip
+RUN echo -e 'PasswordAuthentication yes\nPermitEmptyPasswords yes' >> /etc/ssh/sshd_config \
     && ssh-keygen -A \
     && rm /etc/localtime 2>dev/null \
     && ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime \
@@ -35,11 +36,11 @@ RUN zypper -n refresh \
     && echo "app:" | chpasswd -e \
     && mkdir -p /etc/sudoers.d && echo 'app ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers.d/app \
     && chmod 777 /tmp \
-    && mkdir -p /home/app/.local \
+    && mkdir -p /home/app/.local/share/themes && mkdir -p /home/app/.bin \
+    && curl -s https://ohmyposh.dev/install.sh | bash -s -- -d /home/app/.bin \
+    && git clone https://github.com/dracula/oh-my-posh.git /tmp/oh-my-posh-dracula \
+    && cp /tmp/oh-my-post-dracula/dracula.omp.jason /home/app/.local/share/themes \
     && git clone https://github.com/jasonmb626/dotfiles-dev.git /home/app/.dotfiles \
-    && git clone --recursive https://github.com/andresgongora/synth-shell.git /tmp/synth-shell \
-    && chmod +x /tmp/synth-shell/setup.sh \
-    && echo -e "isyyyyy" | /tmp/synth-shell/setup.sh \
     && mkdir -p /home/app/Documents/zettelkasten \
     && echo -e "export GDM_LANG=en_US.UTF-8\nexport LANG=en_US.UTF-8\nexport XDG_CACHE_HOME=/home/app/.local/cache\nexport ZETTEL_BASE=/home/app/Documents/zettelkasten\nexport ORG_TEMPLATES_DIR=/home/app/.config/emacs/templates" >> /home/app/.profile \
     && chown -R app:app /home/app \
