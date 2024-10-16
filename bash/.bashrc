@@ -4,6 +4,18 @@ if [[ -x ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh ]]; then
     ~/.config/tmux/plugins/tpm/scripts/install_plugins.sh | grep -v 'Already installed'
 fi
 
+if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
+  if [[ -f /home/app/.config/nvim/lua/config/options.lua ]]; then
+    sed -i 's^--vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^' /home/app/.config/nvim/lua/config/options.lua
+  fi
+  if [[ -x /usr/sbin/sshd && -f /home/app/.wantdockerssh ]]; then
+    SSHD_PID=$(ps aux | grep sshd | grep -v grep | awk '{print $2}')
+    if [[ -z $SSHD_PID ]]; then
+      exec sudo /usr/sbin/sshd -D -e "$@" 2>/dev/null &
+    fi
+  fi
+fi
+
 #Start tmux automatically
 if [ -z "$TMUX" ]; then
   tmux -u attach -t TMUX || tmux -u new -s TMUX
@@ -34,35 +46,6 @@ fi
 unset rc
 set -o vi
 
-##-----------------------------------------------------
-## synth-shell-greeter.sh
-#if [ -f /usr/local/bin/synth-shell-greeter.sh ] && [ -n "$(echo $- | grep i)" ]; then
-#  source /usr/local/bin/synth-shell-greeter.sh
-#fi
-
-##-----------------------------------------------------
-## synth-shell-prompt.sh
-#if [ -f /usr/local/bin/synth-shell-prompt.sh ] && [ -n "$(echo $- | grep i)" ]; then
-#  source /usr/local/bin/synth-shell-prompt.sh
-#fi
-
-##-----------------------------------------------------
-## better-ls
-#if [ -f /usr/local/bin/better-ls.sh ] && [ -n "$( echo $- | grep i )" ]; then
-#	source /usr/local/bin/better-ls.sh
-#fi
-
-##-----------------------------------------------------
-## alias
-#if [ -f /usr/local/bin/alias.sh ] && [ -n "$(echo $- | grep i)" ]; then
-#  source /usr/local/bin/alias.sh
-#fi
-
-##-----------------------------------------------------
-## better-history
-#if [ -f /usr/local/bin/better-history.sh ] && [ -n "$(echo $- | grep i)" ]; then
-#  source /usr/local/bin/better-history.sh
-#fi
 #Aliases
 
 #Git
@@ -85,15 +68,6 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -f /home/app/.venvs/app/bin/activate ]]; then
     source /home/app/.venvs/app/bin/activate
   fi
-  if [[ -f /home/app/.config/nvim/lua/config/options.lua ]]; then
-    sed -i 's^--vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^' /home/app/.config/nvim/lua/config/options.lua
-  fi
-  if [[ -x /usr/sbin/sshd && -f /home/app/.wantdockerssh ]]; then
-    SSHD_PID=$(ps aux | grep sshd | grep -v grep | awk '{print $2}')
-    if [[ -z $SSHD_PID ]]; then
-      exec sudo /usr/sbin/sshd -D -e "$@" 2>/dev/null &
-    fi
-  fi
 fi
 
 if [[ -x $(which oh-my-posh) ]]; then
@@ -103,4 +77,3 @@ if [[ -x $(which oh-my-posh) ]]; then
         eval "$(oh-my-posh init bash)"
     fi
 fi
-
