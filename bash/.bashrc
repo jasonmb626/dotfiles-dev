@@ -88,7 +88,7 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -f /home/app/.config/nvim/lua/config/options.lua ]]; then
     sed -i 's^--vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^' /home/app/.config/nvim/lua/config/options.lua
   fi
-  if [[ -x /usr/sbin/sshd ]]; then
+  if [[ -x /usr/sbin/sshd && -f /home/app/.wantdockerssh ]]; then
     SSHD_PID=$(ps aux | grep sshd | grep -v grep | awk '{print $2}')
     if [[ -z $SSHD_PID ]]; then
       exec sudo /usr/sbin/sshd -D -e "$@" 2>/dev/null &
