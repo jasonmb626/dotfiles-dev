@@ -7,5 +7,6 @@
 - [ ] Schedule tasks with no date.
 - [ ] Clock in
 - [ ] Review TCS Email
-#+BEGIN: clocktable :tstart "<%<%Y-%m-%d %a> 00:00>" :tstart "<%<%Y-%m-%d %a> 23:59>" :scope agenda :tags :stepskip0 t :fileskip0 tt
+** Clocktable
+#+BEGIN: clocktable :tstart "<%<%Y-%m-%d %a> 00:00>" :tend "<%<%Y-%m-%d %a> 23:59>" :scope agenda :tags t :stepskip0 t :fileskip0 t
 #+END:
