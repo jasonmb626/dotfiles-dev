@@ -233,6 +233,7 @@
     "i d" 'org-insert-drawer
     "i e" 'org-set-effors
     "i f" 'org-footnote-new
+    "i g" 'org-id-get-create
     "i h" 'org-insert-heading
     "i i" 'org-insert-item
     "i l" 'org-insert-link
