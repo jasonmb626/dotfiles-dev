@@ -1,0 +1,170 @@
+#!/bin/bash
+
+   #################################################################
+   #                                                               #
+   #             GNOME Shell Extension Installer 1.6.2             #
+   #                                                               #
+   #       Copyright (C) 2017 Ian Brunelli <ian@brunelli.me>       #
+   #       Licensed under the GNU General Public License 2.0       #
+   #                                                               #
+   #  https://github.com/brunelli/gnome-shell-extension-installer  #
+   #                                                               #
+   #################################################################
+
+usage_guide() {
+  cat << EOF
+Usage: $SCRIPT_NAME EXTENSION_ID
+
+Usage example:
+  $SCRIPT_NAME 307			# Install "Dash to Dock"
+EOF
+}
+
+download_version() {
+  DOWNLOAD_TARGET=$( sed "s/^.*$2\": {\"pk[\": ]\+\([0-9]\+\),.*$/\1/" <<< "$1" )
+  METADATA_FILE="$EXTENSIONS_PATH/$EXTENSION_UUID/metadata.json"
+  [ -f "$METADATA_FILE" ] &&
+  { VERSION_TARGET=$( sed "s/^.*$2\": {\"pk[\": ]\+[0-9]\+[\", ]\+version[\": ]\+\([0-9]\+\)}.*$/\1/" <<< "$1" )
+    VERSION_INSTALLED=$( sed -n "s/^[[:space:]]*\"version[\": ]\+\([0-9]\+\).*$/\1/p" "$METADATA_FILE" )
+    [[ $VERSION_INSTALLED ]] ||
+    { echo -e "\e[0;31mERROR\e[0m: Use your package manager to update this extension" >&2
+      return 1; }
+    [[ $VERSION_TARGET -le $VERSION_INSTALLED ]] &&
+    { if [ $UPDATE_MODE ]; then
+        echo "[$EXTENSION_NAME] The extension is up-to-date"
+        return 2
+      fi; } ||
+    echo "[$EXTENSION_NAME] New version available"; }
+  echo "[$EXTENSION_NAME] Downloading extension"
+  if curl $DOWNLOAD_PARAMETERS -o "$TMP_DIR/shell-$SELECTED_VERSION-extension-install.$EXTENSION_ID.zip" \
+          "$EXTENSIONS_SITE/download-extension/$EXTENSION_UUID.shell-extension.zip?version_tag=$DOWNLOAD_TARGET"
+  then
+        gnome-extensions install $TMP_DIR/shell-$SELECTED_VERSION-extension-install.$EXTENSION_ID.zip
+        install_success=$?
+        if [[ $install_success ]]; then
+            echo "[$EXTENSION_NAME] Installed Successfully"
+        else
+            echo "gnome-extensions install error. $install_success"
+            return $install_success
+        fi
+  else
+    echo -e "\e[0;31mERROR\e[0m: Failed to download extension" >&2
+    return 1
+  fi
+}
+
+check_version_availability() {
+  unset SELECTED_VERSION
+  for VERSION in ${EXTENSION_VERSIONS[@]}; do
+    [ "$1" == "$VERSION" ] &&
+    SELECTED_VERSION="$1"
+  done
+  [[ ! $SELECTED_VERSION ]] &&
+  { TARGET=$( sed -n "s/^3\.\([0-9]\+\).*$/\1/p" <<< "$1" )
+    LATEST=$( sed -n "s/^3\.\([0-9]\+\).*$/\1/p" <<< "${EXTENSION_VERSIONS[0]}" )
+    [[ ${1%%\.*} == ${EXTENSION_VERSIONS[0]%%\.*} ]] &&
+    [[ $TARGET -gt $LATEST ]] &&
+    [[ $LATEST -gt 20 ]] &&
+    SELECTED_VERSION="${EXTENSION_VERSIONS[0]}" &&
+    [[ ! $UPDATE_MODE ]] &&
+    echo -e "\e[0;33mWARNING\e[0m: Extension not available for GNOME Shell $1, using $SELECTED_VERSION instead" >&2; }
+}
+
+extract_info() {
+  EXTENSION_NAME=$( sed 's/^.*\"name\"[: \"]*\([^\"]*\).*$/\1/' <<< "$1" )
+  EXTENSION_DESCRIPTION=$( sed 's/^.*\"description\": \"//g' <<< "$1" |
+                           sed 's/\", \"[a-z]\+\".*$//g' |
+                           sed 's/\\\"/\"/g' )
+  EXTENSION_CREATOR=$( sed 's/^.*\"creator\"[: \"]*\([^\"]*\).*$/\1/' <<< "$1" )
+  EXTENSION_UUID=$( sed 's/^.*\"uuid\"[: \"]*\([^\"]*\).*$/\1/' <<< "$1" )
+  EXTENSION_ID=$( sed 's/^.*\"pk\"[: \"]*\([^\"]*\),.*$/\1/' <<< "$1" )
+  EXTENSION_LINK=$( sed 's/^.*\"link\"[: \"]*\([^\"]*\).*$/\1/' <<< "$1" )
+  EXTENSION_URL=$( grep "download_url" <<< "$1" |
+                   sed 's/^.*\"download_url\"[: \"]*\([^\"]*\).*$/\1/' )
+  EXTENSION_VERSIONS=($( sed 's/[\"]*:[ ]*{[\"]*pk[\"]*:/\n/g' <<< "$1" |
+                         sed '$ d' | sed 's/^.*\"//g' | sort -rV ))
+}
+
+download_info() {
+  unset EXTENSION_INFO EXTENSIONS_QUERY EXTENSION_COMMENTS
+  PAGES=-1
+  TOTAL=-1
+  EXTENSION_INFO=$( curl $DOWNLOAD_PARAMETERS "$EXTENSIONS_SITE${1// /%20}" )
+  case "$?" in
+    0)
+      if [ "$( echo $EXTENSION_INFO | grep name )" ]; then
+        return 0
+      else
+        echo -e "\e[0;31mERROR\e[0m: $2" >&2
+        return 2
+      fi
+      ;;
+    22)
+      echo -e "\e[0;31mERROR\e[0m: $3 could not be found" >&2
+      return 22
+      ;;
+    130)
+      return 1
+      ;;
+    *)
+      echo -e "\e[0;31mERROR\e[0m: $4 (curl error $?)" >&2
+      return 1
+      ;;
+  esac
+}
+
+get_info_from_id() {
+  echo "[$1] Obtaining extension info"
+  download_info "/extension-info/?pk=$1" \
+                "Blank file" \
+                "The extension $1" \
+                "Failed to obtain extension info" &&
+  extract_info "$EXTENSION_INFO"
+}
+
+get_extension() {
+    check_version_availability "$1"
+    { if [ "$SELECTED_VERSION" ]; then
+        download_version "$EXTENSION_INFO" "$SELECTED_VERSION"
+      else
+        echo "[$EXTENSION_NAME] Extension not available for GNOME Shell $1"
+        get_other_version "$1"
+      fi; }
+}
+
+for CMD in curl dbus-send
+do
+    command -v "$CMD" > /dev/null ||
+    { echo "Missing required command: ${CMD}" >&2
+      exit 1; }
+done
+
+GNOME_VERSION=$( gnome-shell --version 2> /dev/null |
+                 sed -n "s/^.* \([0-9]\+\.[0-9]\+\).*$/\1/p" )
+if [[ "${GNOME_VERSION%%"."*}" -ge 40 ]]; then
+  GNOME_VERSION="${GNOME_VERSION%%"."*}"
+fi
+
+TMP_DIR=/tmp
+DOWNLOAD_PARAMETERS="-Lfs"
+EXTENSIONS_SITE="https://extensions.gnome.org"
+SORT="popularity"
+
+[[ $EUID -eq 0 ]] &&
+EXTENSIONS_PATH="/usr/share/gnome-shell/extensions" ||
+{ EXTENSIONS_PATH="$HOME/.local/share/gnome-shell/extensions"
+  mkdir -p "$EXTENSIONS_PATH"; }
+command -v gnome-shell > /dev/null &&
+
+[[ $GNOME_VERSION ]] ||
+{ echo -e "\e[0;31mERROR\e[0m: You need to pass a GNOME version as argument" >&2
+  exit 5; }
+EXTENSION_ID=$1
+if [[ ! -z $EXTENSION_ID ]]; then
+    get_info_from_id "$EXTENSION_ID" &&
+    get_extension "$GNOME_VERSION"
+else
+  usage_guide
+fi
+
+echo "You will need to restart GNOME Shell."
