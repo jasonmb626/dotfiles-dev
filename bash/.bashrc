@@ -1,7 +1,7 @@
 # .bashrc
 
-if [[ -x ~/.bin/tmux/plugins/tpm/scripts/install_plugins.sh ]]; then
-    ~/.bin/tmux/plugins/tpm/scripts/install_plugins.sh | grep -v 'Already installed'
+if [[ -x ~/.bin/tpm/scripts/install_plugins.sh ]]; then
+    ~/.bin/tpm/scripts/install_plugins.sh | grep -v 'Already installed'
 fi
 
 if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
