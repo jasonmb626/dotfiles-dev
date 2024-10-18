@@ -16,8 +16,13 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   fi
 fi
 
-#Start tmux automatically
+#Start tmux automatically, 
 if [ -z "$TMUX" ]; then
+  if [[ -f ~/.want_alt_tmux_prefix ]]; then
+    #if alt file present change prefix (this is assuming we're running in Docker and have TMUX on our main machine and also within Docker)
+    sed -i 's/set -g prefix C-a/set -g prefix C-x/' ~/.config/tmux/tmux.conf
+    sed -i 's/bind-key C-a send-prefix/bind-key C-x send-prefix/' ~/.config/tmux/tmux.conf
+  fi
   tmux -u attach -t TMUX || tmux -u new -s TMUX
 fi
 
