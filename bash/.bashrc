@@ -77,8 +77,8 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
 fi
 
 if [[ -x $(which oh-my-posh) ]]; then
-    if [[ -f ~/.local/share/themes/dracula.omp.json ]]; then
-        eval "$(oh-my-posh init bash --config ~/.local/share/themes/dracula.omp.json)"
+    if [[ -f ~/.themes/dracula.omp.json ]]; then
+        eval "$(oh-my-posh init bash --config ~/.themes/dracula.omp.json)"
     else
         eval "$(oh-my-posh init bash)"
     fi
