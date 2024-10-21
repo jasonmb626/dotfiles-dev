@@ -1,14 +1,14 @@
 # .bashrc
 
 if [[ -x ~/.bin/tpm/scripts/install_plugins.sh ]]; then
-    ~/.bin/tpm/scripts/install_plugins.sh | grep -v 'Already installed'
+  ~/.bin/tpm/scripts/install_plugins.sh | grep -v 'Already installed'
 fi
 
 if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -f /home/app/.config/nvim/lua/config/options.lua ]]; then
     sed -i 's^--vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^vim.g.python3_host_prog = "/home/app/.venvs/app/bin/python"^' /home/app/.config/nvim/lua/config/options.lua
   fi
-  if [[ -x /usr/sbin/sshd && -f /home/app/.wantdockerssh ]]; then
+  if [[ -x /usr/sbin/sshd && -f /home/app/.config/.want_docker_ssh ]]; then
     SSHD_PID=$(ps aux | grep sshd | grep -v grep | awk '{print $2}')
     if [[ -z $SSHD_PID ]]; then
       exec sudo /usr/sbin/sshd -D -e "$@" 2>/dev/null &
@@ -16,9 +16,9 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   fi
 fi
 
-#Start tmux automatically, 
+#Start tmux automatically,
 if [ -z "$TMUX" ]; then
-  if [[ -f ~/.want_alt_tmux_prefix ]]; then
+  if [[ -f ~/.config/.want_alt_tmux_prefix ]]; then
     #if alt file present change prefix (this is assuming we're running in Docker and have TMUX on our main machine and also within Docker)
     sed -i 's/set -g prefix C-a/set -g prefix C-x/' ~/.config/tmux/tmux.conf
     sed -i 's/bind-key C-a send-prefix/bind-key C-x send-prefix/' ~/.config/tmux/tmux.conf
@@ -77,9 +77,9 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
 fi
 
 if [[ -x $(which oh-my-posh) ]]; then
-    if [[ -f ~/.themes/dracula.omp.json ]]; then
-        eval "$(oh-my-posh init bash --config ~/.themes/dracula.omp.json)"
-    else
-        eval "$(oh-my-posh init bash)"
-    fi
+  if [[ -f ~/.themes/dracula.omp.json ]]; then
+    eval "$(oh-my-posh init bash --config ~/.themes/dracula.omp.json)"
+  else
+    eval "$(oh-my-posh init bash)"
+  fi
 fi
