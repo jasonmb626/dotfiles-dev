@@ -80,11 +80,3 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
     source /home/app/.venvs/app/bin/activate
   fi
 fi
-
-if [[ -x $(which oh-my-posh) ]]; then
-  if [[ -f ~/.themes/dracula.omp.json ]]; then
-    eval "$(oh-my-posh init bash --config ~/.themes/dracula.omp.json)"
-  else
-    eval "$(oh-my-posh init bash)"
-  fi
-fi
