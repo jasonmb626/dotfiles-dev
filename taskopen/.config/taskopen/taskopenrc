@@ -1,0 +1,7 @@
+[Actions]
+norg.regex = "^[\\.\\/~]+.*\\.(norg)"
+norg.command = "nvim $FILE"
+
+[CLI]
+default = default
+alias.default = "normal --include=norg"
