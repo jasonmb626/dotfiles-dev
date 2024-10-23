@@ -1,9 +1,0 @@
-* TODO %^{Description} :IN_CALL:
-  Desired outcome: %?
-  Store: 
-  Incident: 
-  :LOGBOOK:
-  - Added: %U
-  :END:
-
-

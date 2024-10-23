@@ -1,9 +1,0 @@
-* %^{Incident #} :INCIDENT:
-  :PROPERTIES:
-  :SUMMARY:
-  :ID: %\1
-  :POC:
-  :CREATED: %U
- :END:
- 
- %?

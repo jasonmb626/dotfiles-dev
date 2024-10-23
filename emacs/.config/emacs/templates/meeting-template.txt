@@ -1,7 +1,0 @@
-* TODO %^{Description} :MEETING:
-  Desired outcome: %?
-  :LOGBOOK:
-  - Added: %U
-  :END:
-
-
