@@ -77,6 +77,9 @@ alias dcr="docker compose run --rm --build --service-ports"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
 
+#vit
+alias vit="EDITOR=nvim vit"
+
 if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -f /home/app/.venvs/app/bin/activate ]]; then
     source /home/app/.venvs/app/bin/activate
