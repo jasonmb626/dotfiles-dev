@@ -74,6 +74,8 @@ alias tattach="tmux attach"
 
 #Docker
 alias dcr="docker compose run --rm --build --service-ports"
+alias dcu="docker compose up -d"
+alias dcd="docker compose down"
 
 if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -f /home/app/.venvs/app/bin/activate ]]; then
