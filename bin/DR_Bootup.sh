@@ -16,5 +16,7 @@ id=$(task add proj:org.task_management sched:sod+8h unt:sched+8h Review "On My R
 dep_ids="$dep_ids,$id"
 id=$(task add proj:org.task_management sched:sod+8h unt:sched+8h Choose top 3 projects for the day | grep -Po '\d+')
 dep_ids="$dep_ids,$id"
+id=$(task add proj:org.task_management sched:sod+8h unt:sched+8h Review TCS Email | grep -Po '\d+')
+dep_ids="$dep_ids,$id"
 task add proj:org.task_management sched:sod+8h unt:sched+8h dep:$dep_ids $(date +%Y-%m-%d) - Daily taks review | grep -Po '\d+'
 task add proj:org.email sched:sod+8h unt:sched+8h $(date +%Y-%m-%d) - Email 0
