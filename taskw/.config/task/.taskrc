@@ -43,3 +43,4 @@ report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,s
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
 dateformat=Y-M-D H:N
 default.project=Inbox
+report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,project,tags.count,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
