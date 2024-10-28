@@ -39,8 +39,15 @@ data.location=/home/jason/home/jason/.local/share/task/
 #include solarized-light-256.theme
 #include no-color.theme
 
-report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.formatted,due.relative,until.remaining,description,urgency
+report.next.columns=id,start.age,entry.age,depends,priority,effort,project,tags,recur,scheduled.formatted,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
 dateformat=Y-M-D H:N
 default.project=Inbox
-report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,project,tags.count,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
+report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,effort,project,tags.count,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
+uda.effort.type=string
+uda.effort.label=Effort
+uda.effort.values=1m,5m,15m,30m,1h,1.5h,2h
+urgency.uda.effort.1m.coefficient=15
+urgency.uda.effort.5m.coefficient=8
+urgency.uda.effort.15m.coefficient=4
+urgency.uda.effort.30m.coefficient=4
