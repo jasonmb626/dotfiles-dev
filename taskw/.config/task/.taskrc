@@ -40,7 +40,7 @@ data.location=/home/jason/home/jason/.local/share/task/
 #include no-color.theme
 
 report.next.columns=id,start.age,entry.age,depends,priority,effort,project,tags,recur,scheduled.formatted,due.relative,until.remaining,description,urgency
-report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
+report.next.labels=ID,Active,Age,Deps,P,Effort,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
 dateformat=Y-M-D H:N
 default.project=Inbox
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,effort,project,tags.count,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
