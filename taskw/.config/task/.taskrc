@@ -52,3 +52,9 @@ urgency.uda.effort.5m.coefficient=8
 urgency.uda.effort.15m.coefficient=4
 urgency.uda.effort.30m.coefficient=4
 report.all.labels=ID,St,UUID,A,Age,Done,D,P,Effort,Project,Tags,R,Wait,Sch,Due,Until,Description
+
+report.proj_hist.columns=end,id,uuid.short,project,tags,description
+report.proj_hist.description=History by project
+report.proj_hist.labels=Completed,ID,UUID,Project,Tags,Description
+report.proj_hist.sort=project,end
+
