@@ -77,8 +77,12 @@ alias dcr="docker compose run --rm --build --service-ports"
 alias dcu="docker compose up -d"
 alias dcd="docker compose down"
 
-#vit
+#vit/timewarrior
 alias vit="EDITOR=nvim vit"
+alias tsi="timew summary :ids"
+alias tl="timew lengthen"
+alias tme="timew modify end"
+alias tms="timew modify start"
 
 if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   if [[ -f /home/app/.venvs/app/bin/activate ]]; then
