@@ -78,8 +78,13 @@ def main(old, new):
     if 'start' in new and 'start' not in old:
         start_or_stop = 'start'
         try:
-            subprocess.call(['stopalltasks.sh'])
-        except e:
+            cmd = ["task", "+ACTIVE", "_uuids"]
+            out = subprocess.run(cmd, stdout=subprocess.PIPE)
+            for uuid in out.stdout.decode('utf-8').split('\n'):
+                if uuid != '':
+                    cmd = ["task", "stop", uuid]
+                    out = subprocess.run(cmd, stdout=subprocess.PIPE)
+        except:
             pass
 
     # Stopped task.
