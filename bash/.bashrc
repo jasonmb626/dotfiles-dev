@@ -16,7 +16,7 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
   fi
   if [[ -f /usr/share/timewarrior/ext/on-modify.timewarrior && -f /home/app/.config/.want_timew_hook ]]; then
     mkdir -p /home/app/.local/share/task/hooks
-    cp /usr/share/timewarrior/ext/on-modify.timewarrior /home/app/.local/share/task/hooks/
+    cp ~/.dotfiles/timew/.config/timewarrior/on-modify.timewarrior /home/app/.local/share/task/hooks/
     chmod +x /home/app/.local/share/task/hooks/on-modify.timewarrior
   fi
 fi
