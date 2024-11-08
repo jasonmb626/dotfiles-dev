@@ -41,7 +41,15 @@
 
 report.next.columns=id,start.age,entry.age,depends,priority,effort,project,tags,recur,scheduled.formatted,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Active,Age,Deps,P,Effort,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
-report.next.filter="status:pending -WAITING -RTN
+report.next.filter="status:pending -WAITING -RTN"
+color.tag.next                     rgb440
+default.command                    next
+report.rtn.columns                id,project,tags,recur,description
+report.rtn.context                1
+report.rtn.description            Routine tasks (exist just for being able to clock in and out easily)
+report.rtn.filter                 "status:pending +RTN"
+report.rtn.labels                 ID,Project,Tag,Description
+report.rtn.sort                   Description
 dateformat=Y-M-D H:N
 default.project=Inbox
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,effort,project,tags.count,recur.indicator,wait.remaining,scheduled.remaining,due,until.remaining,description
