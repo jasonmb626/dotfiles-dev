@@ -42,6 +42,9 @@
 report.next.columns=id,start.age,entry.age,depends,priority,effort,project,tags,recur,scheduled.formatted,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Active,Age,Deps,P,Effort,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
 report.next.filter="status:pending -WAITING -RTN"
+report.tod.columns=id,start.age,entry.age,depends,priority,effort,project,tags,recur,scheduled.formatted,due.relative,until.remaining,description,urgency
+report.tod.labels=ID,Active,Age,Deps,P,Effort,Project,Tag,Recur,Scheduled,Due,Until,Description,Urg
+report.tod.filter="status:pending scheduled:today"
 report.rtn.columns=id,project,tags,recur,description
 report.rtn.context=1
 report.rtn.description="Routine tasks (exist just for being able to clock in and out easily)"
