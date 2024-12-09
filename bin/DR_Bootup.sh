@@ -20,13 +20,12 @@ if [[ "$1" == "-l" ]]; then
   exit
 fi
 
-task add proj:org.time eff:1 "$(date +%Y-%m-%d) - Take Blood Pressure"
-task add proj:org.time eff:1 "$(date +%Y-%m-%d) - Nucleus Blocker INC"
-task add proj:org.time eff: 5 sched:sod+8h unt:sched+12h "$(date +%Y-%m-%d) - Enter timesheet"
-task add proj:org.DR eff:1 sched:sod+8h unt:sched+8h "$(date +%Y-%m-%d) - Add today's non-recurring meetings to task list"
-task add proj:org.DR eff:5 sched:sod+8h unt:sched+8h "Review WAITING taks. Have any blockers cleared?"
-task add proj:org.DR eff:5 sched:sod+8h unt:sched+8h "Assign proper projects to anything in the inbox"
-task add proj:org.DR eff:1 sched:sod+8h unt:sched+8h "Review \"On My Radar\" list"
-task add proj:org.DR eff:1 sched:sod+8h unt:sched+8h "$(date +%Y-%m-%d) - Transfer notes from phone list"
-task add proj:org.email sched:sod+8h unt:sched+8h "Review TCS Email"
+task add proj:org.time pri:H eff:1 unt:sched+4h "$(date +%Y-%m-%d) - Take Blood Pressure"
+task add proj:org.time pri:H eff: 5 unt:sched+12h +TOD "$(date +%Y-%m-%d) - Enter timesheet"
+task add proj:org.DR pri:H eff:1 unt:sched+4h +TOD "$(date +%Y-%m-%d) - Add today's non-recurring meetings to task list"
+task add proj:org.email pri:H unt:sched+8h +TOD "Review TCS Email"
+task add proj:org.DR eff:5 unt:sched+8h "Review WAITING taks. Have any blockers cleared?"
+task add proj:org.DR eff:5 unt:sched+8h "Assign proper projects to anything in the inbox"
+task add proj:org.DR eff:1 unt:sched+8h "Review \"On My Radar\" list"
+task add proj:org.DR eff:1 unt:sched+8h "$(date +%Y-%m-%d) - Transfer notes from phone list"
 task add +\#EML proj:org.email sched:sod+8h unt:sched+8h "$(date +%Y-%m-%d) - Email 0"
