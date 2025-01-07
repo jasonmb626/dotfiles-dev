@@ -19,6 +19,9 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
     cp ~/.dotfiles/timew/.config/timewarrior/on-modify.timewarrior /home/app/.local/share/task/hooks/
     chmod +x /home/app/.local/share/task/hooks/on-modify.timewarrior
   fi
+  if [[ -x /home/app/.dotfiles/bin/DR_Bootup.sh && -f /home/app/.config/.want_daily_bootup ]]; then
+      /home/app/.dotfiles/bin/DR_Bootup.sh 
+  fi
 fi
 
 #Start tmux automatically,
