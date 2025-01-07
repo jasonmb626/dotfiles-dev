@@ -20,7 +20,7 @@ if [[ "$(whoami)" == "app" ]]; then #assume we're in Docker
     chmod +x /home/app/.local/share/task/hooks/on-modify.timewarrior
   fi
   if [[ -x /home/app/.dotfiles/bin/DR_Bootup.sh && -f /home/app/.config/.want_daily_bootup ]]; then
-      /home/app/.dotfiles/bin/DR_Bootup.sh 
+      TASKRC=/home/app/.config/task/.taskrc /home/app/.dotfiles/bin/DR_Bootup.sh 
   fi
 fi
 
