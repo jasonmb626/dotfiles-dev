@@ -24,8 +24,8 @@ num_entered_today=$(task "$(date +%Y-%m-%d) -- Daily Entries Added" count 2>/dev
 if [[ $num_entered_today -eq 0 ]]; then
     id=$(task add "$(date +%Y-%m-%d) - Daily Entries Added" | grep -Po '\d+')
     task $id done
-    task add proj:org.time pri:H eff:1 unt:sched+4h "$(date +%Y-%m-%d) - Take Weigth"
-    task add proj:org.time pri:H eff:1 unt:sched+4h "$(date +%Y-%m-%d) - Take Waist Measurement"
+    task add proj:org.time pri:H eff:1 unt:sched+9h "$(date +%Y-%m-%d) - Take Weigth"
+    task add proj:org.time pri:H eff:1 unt:sched+9h "$(date +%Y-%m-%d) - Take Waist Measurement"
     task add proj:org.time pri:H eff:1 unt:sched+4h "$(date +%Y-%m-%d) - Take Blood Pressure"
     task add proj:org.time pri:H eff: 5 unt:sched+12h +TOD "$(date +%Y-%m-%d) - Enter timesheet"
     task add proj:org.DR pri:H eff:1 unt:sched+4h +TOD "$(date +%Y-%m-%d) - Add today's non-recurring meetings to task list"

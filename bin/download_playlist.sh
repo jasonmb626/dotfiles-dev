@@ -7,4 +7,4 @@ if [[ "$url" == "" ]]; then
   exit
 fi
 
-yt-dlp -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --restrict-filenames "$url"
+yt-dlp -o "%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s" --restrict-filenames -f "299+251" "$url"
