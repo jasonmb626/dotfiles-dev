@@ -61,11 +61,11 @@ if not os.path.exists(json_file_path):
 with open(json_file_path, "r") as json_file:
     playlist_data = json.load(json_file)
     playlist_id = playlist_data['playlist_id']
-    season_nbr = playlist_data["playlist_nbr"] + 1
+season_nbr = int(os.path.basename(os.getcwd()).replace('Season ', ''))
 
 nfo_data = (
-    SEASON_NFO_TEMPLATE.replace("%TITLE%", playlist_data["playlist_name"])
-    .replace("%SORT_TITLE%", f"{season_nbr:02d} - {playlist_data['playlist_name']}")
+    SEASON_NFO_TEMPLATE.replace("%TITLE%", playlist_data["title"])
+    .replace("%SORT_TITLE%", f"{season_nbr:02d} - {playlist_data['title']}")
     .replace("%SE%", str(season_nbr))
     .replace("%CD%", playlist_id)
 )
