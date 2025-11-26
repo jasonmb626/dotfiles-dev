@@ -17,7 +17,9 @@ SEASON_NFO_TEMPLATE = """<?xml version="1.0" encoding="utf-8" standalone="yes"?>
   <lockedfields>Name</lockedfields>
   <title>%TITLE%</title>
   <sorttitle>%SORT_TITLE%</sorttitle>
-  <seasonnumber>%SE%</seasonnumber>
+  <season>
+      <seasonnumber>%SE%</seasonnumber>
+  </season>
   <code>%CD%</code>
 </season>"""
 
