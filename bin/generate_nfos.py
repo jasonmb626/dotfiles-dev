@@ -3,8 +3,6 @@
 import csv
 import sys
 import os
-import subprocess
-import math
 import glob
 import json
 
@@ -33,7 +31,11 @@ VIDEO_NFO_TEMPLATE = """<?xml version="1.0" encoding="utf-8" standalone="yes"?>
   <season>%SE%</season>
 </episodedetails>"""
 
-videos_dir = sys.argv[1]
+if len(sys.argv) > 1:
+    videos_dir = sys.argv[1]
+else:
+    videos_dir = os.getcwd()
+
 files = glob.glob(os.path.join(videos_dir, "*.mp4"))
 files.extend(glob.glob(os.path.join(videos_dir, "*.mkv")))
 files.extend(glob.glob(os.path.join(videos_dir, "*.webm")))
@@ -74,14 +76,11 @@ for file in files:
     base_file = os.path.basename(file)
     if base_file.endswith(".mkv"):
         nfo_file = base_file.replace(".mkv", ".nfo")
-        thumb_file=base_file.replace(".mkv", "-thumb.jpg")
     elif base_file.endswith(".mp4"):
         nfo_file = base_file.replace(".mp4", ".nfo")
-        thumb_file=base_file.replace(".mp4", "-thumb.jpg")
     elif file.endswith(".webm"):
         nfo_file = base_file.replace(".webm", ".nfo")
-        thumb_file=base_file.replace(".webm", "-thumb.jpg")
-    video_id = base_file.split(" - ")[1]
+    video_id = base_file.split("_-_")[1].split(".")[0]
     try:
         video_data = next(iter([i for i in videos if i["video_id"] == video_id]))
     except:
@@ -97,11 +96,3 @@ for file in files:
     )
     with open(os.path.join(videos_dir, nfo_file), "w") as nfo_file:
         nfo_file.write(nfo_data)
-    
-    command = ['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=nokey=1:noprint_wrappers=1', file]
-    result = subprocess.run(command, capture_output=True, text=True, check=True)
-    secs = float(result.stdout)
-    sec_offset = secs * 0.10
-    command = ['ffmpeg', '-ss', str(sec_offset), '-i', base_file, '-frames:v', '1', thumb_file]
-    result = subprocess.run(command, capture_output=True, text=True, check=True)
-
