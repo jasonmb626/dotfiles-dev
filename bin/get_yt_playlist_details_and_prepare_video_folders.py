@@ -116,6 +116,7 @@ def get_playlist_info(playlist_id: str):
 
 
 playlist_info = get_playlist_info(playlist_id)
+playlist_info['playlist_id'] = playlist_id
 channel_id = playlist_info["channelId"]
 channel_info = get_channel_data(channel_id)
 if channel_id is None:
@@ -150,7 +151,7 @@ for playlist_item in raw_playlist_items:
 
 with open(os.path.join(playlist_out_path, "dl_playlist.sh"), "w") as txt_file:
     txt_file.write(
-        f"""yt-dlp -o "%(playlist_index)s_-_%(id)s.%(ext)s" \\
+        f"""yt-dlp -o "$(basename $(pwd) | cut -d" " -f2)x%(playlist_index)s_-_%(id)s.%(ext)s" \\
 --sleep-interval 5 \\
 --max-sleep-interval 15 \\
 --retries infinite \\
