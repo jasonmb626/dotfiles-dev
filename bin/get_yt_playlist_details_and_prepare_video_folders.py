@@ -151,7 +151,7 @@ for playlist_item in raw_playlist_items:
 
 with open(os.path.join(playlist_out_path, "dl_playlist.sh"), "w") as txt_file:
     txt_file.write(
-        f"""yt-dlp -o "$(basename $(pwd) | cut -d" " -f2)x%(playlist_index)s_-_%(id)s.%(ext)s" \\
+        f"""yt-dlp -o "$(basename "$(pwd)" | cut -d" " -f2)x%(playlist_index)s_-_%(id)s.%(ext)s" \\
 --sleep-interval 5 \\
 --max-sleep-interval 15 \\
 --retries infinite \\
