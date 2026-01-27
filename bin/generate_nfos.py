@@ -90,9 +90,10 @@ for file in files:
         video_data = None
         continue
     playlist_index = int(video_data["playlist_index"])
+    sanitized_title = video_data["video_title"].replace('&', '&amp;')
     nfo_data = (
-        VIDEO_NFO_TEMPLATE.replace("%TITLE%", video_data["video_title"])
-        .replace("%SORT_TITLE%", f"{playlist_index:03d} - {video_data['video_title']}")
+        VIDEO_NFO_TEMPLATE.replace("%TITLE%", sanitized_title)
+        .replace("%SORT_TITLE%", f"{playlist_index:03d} - {sanitized_title}")
         .replace("%EP%", str(playlist_index))
         .replace("%SE%", str(season_nbr))
     )
