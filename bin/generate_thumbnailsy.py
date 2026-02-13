@@ -30,6 +30,6 @@ for file in files:
     result = subprocess.run(command, capture_output=True, text=True, check=True)
     secs = float(result.stdout)
     sec_offset = secs * 0.10
-    command = ['ffmpeg', '-ss', str(sec_offset), '-i', base_file, '-frames:v', '1', thumb_file]
+    command = ['ffmpeg', '-y', '-ss', str(sec_offset), '-i', base_file, '-frames:v', '1', thumb_file]
     result = subprocess.run(command, capture_output=True, text=True, check=True)
 
