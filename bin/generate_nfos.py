@@ -5,6 +5,7 @@ import sys
 import os
 import glob
 import json
+import re
 
 # Assumes playlist downloaded with this command
 # yt-dlp -o "%(playlist)s/%(playlist_index)s - %(id)s - %(title)s.%(ext)s" --restrict-filenames "<URL>"
@@ -63,7 +64,10 @@ if not os.path.exists(json_file_path):
 with open(json_file_path, "r") as json_file:
     playlist_data = json.load(json_file)
     playlist_id = playlist_data['playlist_id']
-season_nbr = int(os.path.basename(os.getcwd()).replace('Season ', ''))
+
+cwd = os.path.basename(os.getcwd())
+m = re.search(r'(?<=Season )\d+', cwd)
+season_nbr = int(m.group(0))
 
 nfo_data = (
     SEASON_NFO_TEMPLATE.replace("%TITLE%", playlist_data["title"])
